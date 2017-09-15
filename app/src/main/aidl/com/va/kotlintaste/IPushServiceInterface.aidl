@@ -13,4 +13,6 @@ interface IPushServiceInterface {
 
        void clear();
 
+       void update();
+
 }

@@ -63,6 +63,7 @@ public class PersonProvider extends ContentProvider {
             case PERSON:
                 SQLiteDatabase database = tasteDBHelper.getReadableDatabase();
                 cursor = database.query(DBConstant.TABLE_PERSON, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor.setNotificationUri(contentResolver, uri);
                 Log.i("cjm", "query process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 break;
         }
@@ -79,6 +80,9 @@ public class PersonProvider extends ContentProvider {
                 SQLiteDatabase database = tasteDBHelper.getWritableDatabase();
                 values.put(DBConstant.KEY_WHERE, Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 insert = database.insert(DBConstant.TABLE_PERSON, null, values);
+                if (insert > 0) {
+                    contentResolver.notifyChange(uri, null);
+                }
                 Log.i("cjm", "insert process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 break;
         }
@@ -93,6 +97,9 @@ public class PersonProvider extends ContentProvider {
             case PERSON:
                 SQLiteDatabase db = tasteDBHelper.getWritableDatabase();
                 delete = db.delete(DBConstant.TABLE_PERSON, selection, selectionArgs);
+                if (delete>0) {
+                    contentResolver.notifyChange(uri,null);
+                }
                 Log.i("cjm", "delete process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 break;
         }

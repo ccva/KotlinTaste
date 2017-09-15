@@ -8,17 +8,17 @@
 
     <Button
         android:id="@+id/btn_register"
-        android:text="register"
-        android:textAllCaps="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="register"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_unRegister"
-        android:text="unRegister"
-        android:textAllCaps="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="unRegister"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_insert"
@@ -41,9 +41,18 @@
         android:text="delete"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="update"
+        android:textAllCaps="false" />
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#88626161" />
 
 </LinearLayout>

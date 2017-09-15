@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.IBinder
 import com.va.kotlintaste.IPushServiceInterface
 import com.va.kotlintaste.constant.DBConstant
-import com.va.kotlintaste.util.Utils
 
 class BackPushService : Service() {
 
@@ -18,6 +17,10 @@ class BackPushService : Service() {
     var canReceive = false
 
     private var mIBinder: IPushServiceInterface.Stub = object : IPushServiceInterface.Stub() {
+        override fun update() {
+
+        }
+
         override fun clear() {
             clearTableData()
         }
@@ -40,10 +43,10 @@ class BackPushService : Service() {
             return
         }
 
-        var uri = Uri.parse("content://" + DBConstant.AUTHORITY_PERSON + "/" + DBConstant.PATH_PERSON)
-        var contentValues = ContentValues()
+        val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
+        val contentValues = ContentValues()
         contentValues.put(DBConstant.KEY_ID, 1)
-        contentValues.put(DBConstant.KEY_NAME, " cjm \n call provider process is :" + Utils.getProcessName(this, android.os.Process.myPid()))
+        contentValues.put(DBConstant.KEY_NAME, " cjm")
         contentResolver.insert(uri, contentValues)
     }
 
@@ -51,7 +54,7 @@ class BackPushService : Service() {
         if (!canReceive) {
             return
         }
-        var uri = Uri.parse("content://" + DBConstant.AUTHORITY_PERSON + "/" + DBConstant.PATH_PERSON)
+        val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
         contentResolver.delete(uri, null, null)
     }
 

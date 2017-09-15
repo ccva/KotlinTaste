@@ -6,6 +6,8 @@ package com.va.kotlintaste.constant;
 
 public final class DBConstant {
 
+    public static final String PERSON_URI_STRING = "content://" + DBConstant.AUTHORITY_PERSON + "/" + DBConstant.PATH_PERSON;
+
     public static final String AUTHORITY_PERSON = "com.va.kotlintaste";
 
     public static final String PATH_PERSON = "person";
