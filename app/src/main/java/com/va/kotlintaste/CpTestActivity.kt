@@ -55,19 +55,21 @@ class CpTestActivity : AppCompatActivity() {
     }
 
     private fun query() {
-        var uri = Uri.parse("content://" + DBConstant.AUTHORITY_PERSON + "/" + DBConstant.PATH_PERSON)
-        var arrayOf = arrayOf(DBConstant.KEY_ID, DBConstant.KEY_NAME)
-        var cursor = contentResolver.query(uri, arrayOf, null, null, null)
+        val uri = Uri.parse("content://" + DBConstant.AUTHORITY_PERSON + "/" + DBConstant.PATH_PERSON)
+        val arrayOf = arrayOf(DBConstant.KEY_ID, DBConstant.KEY_NAME, DBConstant.KEY_WHERE)
+        val cursor = contentResolver.query(uri, arrayOf, null, null, null)
 
-        var sb = StringBuilder()
-        var format = SimpleDateFormat("HH:mm")
+        val sb = StringBuilder()
+        val format = SimpleDateFormat("HH:mm")
         sb.append("current time is " + format.format(Calendar.getInstance().time)).append("\n")
         sb.append("current process is " + Utils.getProcessName(this, android.os.Process.myPid())).append("\n")
         while (cursor.moveToNext()) {
             var name = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_NAME))
-            sb.append(name).append("\n")
+            var where = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_WHERE))
+            sb.append(name).append("\n").append(where).append("\n")
         }
 
+        cursor.close()
         tv.text = sb.toString()
     }
 

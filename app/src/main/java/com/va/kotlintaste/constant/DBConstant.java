@@ -20,4 +20,6 @@ public final class DBConstant {
 
     public static final String KEY_NAME = "_name";
 
+    public static final String KEY_WHERE = "_where";
+
 }

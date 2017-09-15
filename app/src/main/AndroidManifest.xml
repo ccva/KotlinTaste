@@ -35,7 +35,8 @@
             android:name=".contentprovider.PersonProvider"
             android:authorities="com.va.kotlintaste"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:process=":provider" />
 
         <service
             android:name=".service.BackPushService"

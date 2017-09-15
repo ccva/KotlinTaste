@@ -36,9 +36,14 @@ public class PersonProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        tasteDBHelper = new TasteDBHelper(getContext());
+        initProvider();
         contentResolver = getContext().getContentResolver();
         return true;
+    }
+
+    private void initProvider() {
+        tasteDBHelper = new TasteDBHelper(getContext());
+
     }
 
     @Nullable
@@ -72,6 +77,7 @@ public class PersonProvider extends ContentProvider {
         switch (match) {
             case PERSON:
                 SQLiteDatabase database = tasteDBHelper.getWritableDatabase();
+                values.put(DBConstant.KEY_WHERE, Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 insert = database.insert(DBConstant.TABLE_PERSON, null, values);
                 Log.i("cjm", "insert process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 break;
