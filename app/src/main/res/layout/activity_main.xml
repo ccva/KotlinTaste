@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.va.kotlintaste.MainActivity">
+
+    <Button
+        android:id="@+id/btn_to_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="toSign"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_to_multi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="btn_to_multi"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_to_radar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="btn_to_radar"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_cp_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="cp_test"
+        android:textAllCaps="false" />
+
+
+    <!--<com.va.kotlintaste.stockconfig.MultiLineText-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+</LinearLayout>
