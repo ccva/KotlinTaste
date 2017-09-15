@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.va.kotlintaste.constant.DBConstant
 import com.va.kotlintaste.service.BackPushService
 import com.va.kotlintaste.util.Utils
@@ -73,9 +72,7 @@ class CpTestActivity : AppCompatActivity() {
     }
 
     private fun deleteData() {
-        var uri = Uri.parse("content://" + DBConstant.AUTHORITY_PERSON + "/" + DBConstant.PATH_PERSON)
-        var delete = contentResolver.delete(uri, null, null)
-        Log.i("cjm", delete.toString())
+        serviceInterface?.clear()
     }
 
     private fun insertByRemoteService() {
