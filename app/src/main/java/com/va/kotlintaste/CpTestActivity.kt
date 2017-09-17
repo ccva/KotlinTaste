@@ -35,6 +35,7 @@ class CpTestActivity : AppCompatActivity() {
     private var observer: ContentObserver = object : ContentObserver(Handler()) {
 
         override fun onChange(selfChange: Boolean) {
+            tv.text = StringBuilder(tv.text).append("receive a notify").append("\n").toString()
             query()
         }
     }
@@ -45,7 +46,8 @@ class CpTestActivity : AppCompatActivity() {
 
         tv.movementMethod = LinkMovementMethod.getInstance()
 
-        contentResolver.registerContentObserver(Uri.parse(DBConstant.PERSON_URI_STRING), true, observer)
+        contentResolver.registerContentObserver(Uri.parse(DBConstant.PERSON_URI_STRING),
+                true, observer)
 
         bindService(Intent(this, BackPushService::class.java), conn, Service.BIND_AUTO_CREATE)
 
@@ -63,7 +65,7 @@ class CpTestActivity : AppCompatActivity() {
     }
 
     private fun update() {
-
+        serviceInterface?.update()
     }
 
     private fun unRegister() {

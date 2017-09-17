@@ -108,7 +108,19 @@ public class PersonProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int update = 0;
+        int match = uriMatcher.match(uri);
+        switch (match) {
+            case PERSON:
+                SQLiteDatabase db = tasteDBHelper.getWritableDatabase();
+                update = db.update(DBConstant.TABLE_PERSON, values, selection, selectionArgs);
+                if (update>0) {
+                    contentResolver.notifyChange(uri,null);
+                }
+                Log.i("cjm", "delete process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
+                break;
+        }
         contentResolver.notifyChange(uri, null);
-        return 0;
+        return update;
     }
 }

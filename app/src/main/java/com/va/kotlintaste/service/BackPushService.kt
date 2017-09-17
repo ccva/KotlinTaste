@@ -18,7 +18,7 @@ class BackPushService : Service() {
 
     private var mIBinder: IPushServiceInterface.Stub = object : IPushServiceInterface.Stub() {
         override fun update() {
-
+            updateData()
         }
 
         override fun clear() {
@@ -38,6 +38,19 @@ class BackPushService : Service() {
         }
     }
 
+    private fun updateData() {
+        if (!canReceive){
+            return
+        }
+        val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
+        val values = ContentValues()
+        values.put(DBConstant.KEY_NAME,"ffcjm")
+        val where = DBConstant.KEY_NAME + "= ?"
+        val selectionArgs = "cjm"
+        contentResolver.update(uri,values,where, arrayOf(selectionArgs))
+
+    }
+
     private fun insertData() {
         if (!canReceive) {
             return
@@ -46,7 +59,7 @@ class BackPushService : Service() {
         val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
         val contentValues = ContentValues()
         contentValues.put(DBConstant.KEY_ID, 1)
-        contentValues.put(DBConstant.KEY_NAME, " cjm")
+        contentValues.put(DBConstant.KEY_NAME, "cjm")
         contentResolver.insert(uri, contentValues)
     }
 
