@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -61,8 +62,11 @@ public class PersonProvider extends ContentProvider {
         int match = uriMatcher.match(uri);
         switch (match) {
             case PERSON:
+                Log.i("cjm", "query provider 1  " + SystemClock.currentThreadTimeMillis());
                 SQLiteDatabase database = tasteDBHelper.getReadableDatabase();
+                Log.i("cjm", "query provider 2  " + SystemClock.currentThreadTimeMillis());
                 cursor = database.query(DBConstant.TABLE_PERSON, projection, selection, selectionArgs, null, null, sortOrder);
+                Log.i("cjm", "query provider 3  " + SystemClock.currentThreadTimeMillis());
                 cursor.setNotificationUri(contentResolver, uri);
                 Log.i("cjm", "query process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 break;
@@ -97,8 +101,8 @@ public class PersonProvider extends ContentProvider {
             case PERSON:
                 SQLiteDatabase db = tasteDBHelper.getWritableDatabase();
                 delete = db.delete(DBConstant.TABLE_PERSON, selection, selectionArgs);
-                if (delete>0) {
-                    contentResolver.notifyChange(uri,null);
+                if (delete > 0) {
+                    contentResolver.notifyChange(uri, null);
                 }
                 Log.i("cjm", "delete process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 break;
@@ -114,10 +118,10 @@ public class PersonProvider extends ContentProvider {
             case PERSON:
                 SQLiteDatabase db = tasteDBHelper.getWritableDatabase();
                 update = db.update(DBConstant.TABLE_PERSON, values, selection, selectionArgs);
-                if (update>0) {
-                    contentResolver.notifyChange(uri,null);
+                if (update > 0) {
+                    contentResolver.notifyChange(uri, null);
                 }
-                Log.i("cjm", "delete process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
+                Log.i("cjm", "update process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
                 break;
         }
         contentResolver.notifyChange(uri, null);

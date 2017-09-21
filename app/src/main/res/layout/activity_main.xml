@@ -34,6 +34,13 @@
         android:text="cp_test"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_notify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="notify"
+        android:textAllCaps="false" />
+
 
     <!--<com.va.kotlintaste.stockconfig.MultiLineText-->
     <!--android:layout_width="match_parent"-->

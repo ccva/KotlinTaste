@@ -5,13 +5,24 @@ import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.IBinder
+import android.util.Log
 import com.va.kotlintaste.IPushServiceInterface
 import com.va.kotlintaste.constant.DBConstant
+import com.va.kotlintaste.util.ProcessUtils
 
 class BackPushService : Service() {
 
+    private val TAG = "backpushService"
+
     override fun onCreate() {
         super.onCreate()
+
+        var foregroundApp = ProcessUtils.getForegroundApp(this)
+        if (foregroundApp == "com.va.kotlintaste") {
+            Log.i(TAG, "true")
+        } else {
+            Log.i(TAG, "false")
+        }
     }
 
     var canReceive = false
@@ -39,15 +50,15 @@ class BackPushService : Service() {
     }
 
     private fun updateData() {
-        if (!canReceive){
+        if (!canReceive) {
             return
         }
         val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
         val values = ContentValues()
-        values.put(DBConstant.KEY_NAME,"ffcjm")
+        values.put(DBConstant.KEY_NAME, "ffcjm")
         val where = DBConstant.KEY_NAME + "= ?"
         val selectionArgs = "cjm"
-        contentResolver.update(uri,values,where, arrayOf(selectionArgs))
+        contentResolver.update(uri, values, where, arrayOf(selectionArgs))
 
     }
 

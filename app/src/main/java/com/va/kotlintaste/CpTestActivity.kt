@@ -10,15 +10,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import com.va.kotlintaste.constant.DBConstant
 import com.va.kotlintaste.service.BackPushService
+import com.va.kotlintaste.util.ProcessUtils
 import kotlinx.android.synthetic.main.activity_cp_test.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CpTestActivity : AppCompatActivity() {
+
+    private val TAG = CpTestActivity::class.java.simpleName
 
     var serviceInterface: IPushServiceInterface? = null
 
@@ -42,6 +47,14 @@ class CpTestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var foregroundApp = ProcessUtils.getForegroundApp(this)
+        if (foregroundApp == "com.va.kotlintaste") {
+            Log.i(TAG, "true")
+        } else {
+            Log.i(TAG, "false")
+        }
+
         setContentView(R.layout.activity_cp_test)
 
         tv.movementMethod = LinkMovementMethod.getInstance()
@@ -78,21 +91,29 @@ class CpTestActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun query() {
-        val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
-        val arrayOf = arrayOf(DBConstant.KEY_ID, DBConstant.KEY_NAME, DBConstant.KEY_WHERE)
-        val cursor = contentResolver.query(uri, arrayOf, null, null, null)
 
-        val sb = StringBuilder()
-        val format = SimpleDateFormat("HH:mm")
-        sb.append("time : " + format.format(Calendar.getInstance().time)).append("\n")
-        while (cursor.moveToNext()) {
-            val name = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_NAME))
-            val where = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_WHERE))
-            sb.append(name).append("\n").append(where).append("\n")
-        }
+        Thread(Runnable {
+            kotlin.run {
+                val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
+                val arrayOf = arrayOf(DBConstant.KEY_ID, DBConstant.KEY_NAME, DBConstant.KEY_WHERE)
+                Log.i("cjm", "query 1  " + SystemClock.currentThreadTimeMillis())
+                val cursor = contentResolver.query(uri, arrayOf, null, null, null)
+                Log.i("cjm", "query 2  " + SystemClock.currentThreadTimeMillis())
+                val sb = StringBuilder()
+                val format = SimpleDateFormat("HH:mm")
+                sb.append("time : " + format.format(Calendar.getInstance().time)).append("\n")
+                while (cursor.moveToNext()) {
+                    val name = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_NAME))
+                    val where = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_WHERE))
+                    sb.append(name).append("\n")
+                }
 
-        cursor.close()
-        tv.text = StringBuilder(tv.text).append(sb).toString()
+                cursor.close()
+
+                runOnUiThread { tv.text = StringBuilder(tv.text).append(sb).toString() }
+            }
+        }).start()
+
     }
 
     private fun deleteData() {
