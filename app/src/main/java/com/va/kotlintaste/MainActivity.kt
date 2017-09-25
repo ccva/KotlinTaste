@@ -1,17 +1,18 @@
 package com.va.kotlintaste
 
-import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.graphics.drawable.Icon
 import android.os.Bundle
-import android.support.annotation.RequiresApi
+import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.RemoteViews
+import kotlinx.android.synthetic.main.activity_main.*
+import android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
+
 
 
 
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         btn_cp_test.setOnClickListener { startActivity(Intent(this, CpTestActivity::class.java)) }
 
         btn_notify.setOnClickListener { buildNotify() }
+
+        btn_listener.setOnClickListener { openNotificationListenSettings() }
     }
 
 
@@ -38,29 +41,40 @@ class MainActivity : AppCompatActivity() {
         var notificationService = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val view_custom = RemoteViews(packageName, R.layout.view_custom)
-//        view_custom.setImageViewResource(R.id.custom_icon, R.drawable.icon)
         view_custom.setTextViewText(R.id.tv_custom_title, "今日头条")
         view_custom.setTextViewText(R.id.tv_custom_content, "金州勇士官方宣布球队已经解雇了主帅马克-杰克逊，随后宣布了最后的结果。")
 
         var notification = Notification()
 
+        notification.`when` = System.currentTimeMillis()
+        notification.flags = Notification.FLAG_AUTO_CANCEL
+        notification.tickerText = "hello world"
+        notification.icon = R.mipmap.ic_launcher//这是个坑，如果不设置icon，通知不显示
+
         notification.contentView = view_custom
-        var pendingIntent = PendingIntent.getActivity(this, 200, Intent(this, CpTestActivity::class.java), 0)
+        var intent = Intent(this, CpTestActivity::class.java)
+//        intent.`package` = packageName
+        var pendingIntent = PendingIntent.getActivity(this, 200, intent, 0)
         notification.contentIntent = pendingIntent
 
 
-
-//        var builder = Notification.Builder(this)
-//        builder.setAutoCancel(true)
-//        builder.setDefaults(Notification.DEFAULT_VIBRATE)
-//        builder.setContent(view_custom)
-////        builder.setContentTitle("title")
-////        builder.setContentText("contentText")
-////        builder.setSmallIcon(R.mipmap.ic_launcher_round)
-//        builder.setContentIntent(pendingIntent)
-//        var notification = builder.build()
-
         notificationService.notify(100, notification)
+
+    }
+
+
+    fun openNotificationListenSettings() {
+        try {
+            val intent: Intent
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+            } else {
+                intent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
     }
 

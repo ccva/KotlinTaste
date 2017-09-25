@@ -41,6 +41,13 @@
         android:text="notify"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_listener"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="listener"
+        android:textAllCaps="false" />
+
 
     <!--<com.va.kotlintaste.stockconfig.MultiLineText-->
     <!--android:layout_width="match_parent"-->
