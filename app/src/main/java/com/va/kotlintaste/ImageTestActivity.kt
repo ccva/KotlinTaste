@@ -11,11 +11,11 @@ class ImageTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_test)
 
-        civ.setPreWidth(400F,2000F)
-
-        civ.scaleType = ImageView.ScaleType.CENTER_CROP
-
-        civ.setImageResource(R.drawable.timg)
+//        civ.setPreWidth(400F,2000F)
+//
+//        civ.scaleType = ImageView.ScaleType.CENTER_CROP
+//
+//        civ.setImageResource(R.drawable.timg)
 
     }
 }

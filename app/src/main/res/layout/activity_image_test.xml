@@ -7,9 +7,15 @@
     android:orientation="vertical"
     tools:context="com.va.kotlintaste.ImageTestActivity">
 
-    <com.va.kotlintaste.widget.CustomImageView
-        android:id="@+id/civ"
+    <!--<com.va.kotlintaste.widget.CustomImageView-->
+    <!--android:id="@+id/civ"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent" />-->
+
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/path_q" />
+
 
 </LinearLayout>
