@@ -75,6 +75,12 @@ class CpTestActivity : AppCompatActivity() {
         btn_delete.setOnClickListener { deleteData() }
 
         btn_update.setOnClickListener { update() }
+
+        btn_notify.setOnClickListener { notifyI() }
+    }
+
+    private fun notifyI() {
+        serviceInterface?.notification()
     }
 
     private fun update() {

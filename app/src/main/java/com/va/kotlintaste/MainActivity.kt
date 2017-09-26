@@ -5,21 +5,25 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import android.widget.RemoteViews
 import kotlinx.android.synthetic.main.activity_main.*
-import android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
-
-
 
 
 class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if (intent != null && intent.extras != null) {
+            var string = intent.extras.getString("cjm")
+            if ("cjm" == string) {
+                startActivity(Intent(this, CpTestActivity::class.java))
+            }
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -34,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         btn_notify.setOnClickListener { buildNotify() }
 
         btn_listener.setOnClickListener { openNotificationListenSettings() }
+
+        btn_image.setOnClickListener { startActivity(Intent(this, ImageTestActivity::class.java)) }
     }
 
 

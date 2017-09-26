@@ -1,12 +1,19 @@
 package com.va.kotlintaste.service
 
+import android.app.Notification
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import com.va.kotlintaste.IPushServiceInterface
+import com.va.kotlintaste.MainActivity
+import com.va.kotlintaste.R
 import com.va.kotlintaste.constant.DBConstant
 import com.va.kotlintaste.util.ProcessUtils
 
@@ -28,6 +35,10 @@ class BackPushService : Service() {
     var canReceive = false
 
     private var mIBinder: IPushServiceInterface.Stub = object : IPushServiceInterface.Stub() {
+        override fun notification() {
+            notifyI()
+        }
+
         override fun update() {
             updateData()
         }
@@ -47,6 +58,44 @@ class BackPushService : Service() {
         override fun unRegisterPushService() {
             canReceive = false
         }
+    }
+
+    private fun notifyI() {
+        if (!canReceive) {
+            return
+        }
+
+        buildNotification()
+    }
+
+    private fun buildNotification() {
+
+        var builder = Notification.Builder(this)
+        builder.setTicker("tickertickertickertickertickertickertickertickertickertickerticker")
+        builder.setSmallIcon(R.mipmap.ic_launcher)
+        builder.setDefaults(Notification.DEFAULT_ALL)
+
+
+        builder.setContentTitle("title")
+        builder.setContentText("content")
+
+        builder.setWhen(System.currentTimeMillis())
+
+        var intent = Intent()
+        intent.setClassName("com.va.kotlintaste", MainActivity::class.java.name)
+        var bundle = Bundle()
+        bundle.putString("cjm", "cjm")
+        intent.putExtras(bundle)
+
+        var pendingIntent = PendingIntent.getActivity(this, 100, intent, 0)
+        builder.setContentIntent(pendingIntent)
+
+        var notification = builder.build()
+
+        var notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager.notify(200, notification)
+
     }
 
     private fun updateData() {

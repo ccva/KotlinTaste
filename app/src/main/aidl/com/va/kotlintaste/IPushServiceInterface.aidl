@@ -15,4 +15,6 @@ interface IPushServiceInterface {
 
        void update();
 
+       void notification();
+
 }

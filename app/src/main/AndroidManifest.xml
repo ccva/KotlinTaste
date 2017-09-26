@@ -62,12 +62,12 @@
             android:name=".broadcast.NotificationReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="com.va.notification" />
             </intent-filter>
-
         </receiver>
+
+        <activity android:name=".ImageTestActivity"></activity>
     </application>
 
 </manifest>

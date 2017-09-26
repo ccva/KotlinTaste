@@ -48,6 +48,13 @@
         android:text="update"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_notify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="notify"
+        android:textAllCaps="false" />
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
