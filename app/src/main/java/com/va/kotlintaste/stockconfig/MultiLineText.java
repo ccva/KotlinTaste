@@ -67,7 +67,7 @@ public class MultiLineText extends View {
 //        float bottom = fontMetrics.bottom;
 //        int length = strings.length;
 //        float total = (length - 1) * (-top + bottom) + (-fontMetrics.ascent + fontMetrics.descent);
-//        float offset = total / 2 - bottom;
+//        float offset = total / a2 - bottom;
 //        for (int i = 0; i < length; i++) {
 //            float yAxis = -(length - i - 1) * (-top + bottom) + offset;
 //            canvas.drawText(strings[i], point.x, point.y + yAxis, mPaint);

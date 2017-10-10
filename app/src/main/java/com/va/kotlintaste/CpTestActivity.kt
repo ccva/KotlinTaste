@@ -104,7 +104,7 @@ class CpTestActivity : AppCompatActivity() {
                 val arrayOf = arrayOf(DBConstant.KEY_ID, DBConstant.KEY_NAME, DBConstant.KEY_WHERE)
                 Log.i("cjm", "query 1  " + SystemClock.currentThreadTimeMillis())
                 val cursor = contentResolver.query(uri, arrayOf, null, null, null)
-                Log.i("cjm", "query 2  " + SystemClock.currentThreadTimeMillis())
+                Log.i("cjm", "query a2  " + SystemClock.currentThreadTimeMillis())
                 val sb = StringBuilder()
                 val format = SimpleDateFormat("HH:mm")
                 sb.append("time : " + format.format(Calendar.getInstance().time)).append("\n")

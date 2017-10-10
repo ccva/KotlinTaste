@@ -13,9 +13,10 @@
     <!--android:layout_height="match_parent" />-->
 
     <ImageView
+        android:id="@+id/iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/path_q" />
+        app:srcCompat="@drawable/path_trim" />
 
 
 </LinearLayout>

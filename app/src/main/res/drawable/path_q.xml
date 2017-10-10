@@ -27,8 +27,7 @@
     <path
         android:fillColor="#f24e4e"
         android:pathData="
-            M20,20
-            a8,9 -15 0 0 -9,2
-            " />
+            M30,20
+            a8,9 -15 0 0 -9,2" />
 
 </vector>

@@ -64,7 +64,7 @@ public class PersonProvider extends ContentProvider {
             case PERSON:
                 Log.i("cjm", "query provider 1  " + SystemClock.currentThreadTimeMillis());
                 SQLiteDatabase database = tasteDBHelper.getReadableDatabase();
-                Log.i("cjm", "query provider 2  " + SystemClock.currentThreadTimeMillis());
+                Log.i("cjm", "query provider a2  " + SystemClock.currentThreadTimeMillis());
                 cursor = database.query(DBConstant.TABLE_PERSON, projection, selection, selectionArgs, null, null, sortOrder);
                 Log.i("cjm", "query provider 3  " + SystemClock.currentThreadTimeMillis());
                 cursor.setNotificationUri(contentResolver, uri);
