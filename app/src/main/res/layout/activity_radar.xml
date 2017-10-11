@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.va.kotlintaste.RadarActivity">
+    tools:context="com.va.kotlintaste.act.RadarActivity">
 
     <com.va.kotlintaste.multiShape.RadarView
         android:id="@+id/rv"

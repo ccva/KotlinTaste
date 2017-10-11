@@ -1,4 +1,4 @@
-package com.va.kotlintaste
+package com.va.kotlintaste.act
 
 import android.app.Notification
 import android.app.NotificationManager
@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import android.widget.RemoteViews
+import com.va.kotlintaste.R
+import com.va.kotlintaste.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -40,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         btn_listener.setOnClickListener { openNotificationListenSettings() }
 
         btn_image.setOnClickListener { startActivity(Intent(this, ImageTestActivity::class.java)) }
+
+        btn_list.setOnClickListener { startActivity(Intent(this, ListActivity::class.java)) }
     }
 
 

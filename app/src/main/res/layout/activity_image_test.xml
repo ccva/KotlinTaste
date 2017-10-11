@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.va.kotlintaste.ImageTestActivity">
+    tools:context="com.va.kotlintaste.act.ImageTestActivity">
 
     <!--<com.va.kotlintaste.widget.CustomImageView-->
     <!--android:id="@+id/civ"-->

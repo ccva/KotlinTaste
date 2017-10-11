@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.va.kotlintaste.MainActivity">
+    tools:context="com.va.kotlintaste.act.MainActivity">
 
     <Button
         android:id="@+id/btn_to_sign"
@@ -53,6 +53,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="image"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="list_act"
         android:textAllCaps="false" />
 
 

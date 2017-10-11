@@ -12,7 +12,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import com.va.kotlintaste.IPushServiceInterface
-import com.va.kotlintaste.MainActivity
+import com.va.kotlintaste.act.MainActivity
 import com.va.kotlintaste.R
 import com.va.kotlintaste.constant.DBConstant
 import com.va.kotlintaste.util.ProcessUtils

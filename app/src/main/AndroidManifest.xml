@@ -13,19 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".act.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignActivity" />
+        <activity android:name=".act.SignActivity" />
         <activity
-            android:name=".MultiShapeActivity"
+            android:name=".act.MultiShapeActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".RadarActivity" />
-        <activity android:name=".CpTestActivity" />
+        <activity android:name=".act.RadarActivity" />
+        <activity android:name=".act.CpTestActivity" />
 
         <provider
             android:name=".contentprovider.PersonProvider"
@@ -67,7 +67,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ImageTestActivity"></activity>
+        <activity android:name=".act.ImageTestActivity" />
+        <activity android:name=".act.ListActivity" />
+        <activity android:name=".act.TransateActivity"></activity>
     </application>
 
 </manifest>

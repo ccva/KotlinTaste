@@ -1,10 +1,11 @@
-package com.va.kotlintaste
+package com.va.kotlintaste.act
 
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat
 import android.support.v7.app.AppCompatActivity
+import com.va.kotlintaste.R
 import kotlinx.android.synthetic.main.activity_image_test.*
 
 class ImageTestActivity : AppCompatActivity() {

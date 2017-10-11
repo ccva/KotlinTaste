@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.va.kotlintaste.MultiShapeActivity">
+    tools:context="com.va.kotlintaste.act.MultiShapeActivity">
 
     <com.va.kotlintaste.multiShape.MultiShareView
         android:id="@+id/msv"

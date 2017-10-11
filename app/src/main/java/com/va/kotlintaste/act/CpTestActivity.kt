@@ -1,4 +1,4 @@
-package com.va.kotlintaste
+package com.va.kotlintaste.act
 
 import android.annotation.SuppressLint
 import android.app.Service
@@ -14,6 +14,8 @@ import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.text.method.LinkMovementMethod
 import android.util.Log
+import com.va.kotlintaste.IPushServiceInterface
+import com.va.kotlintaste.R
 import com.va.kotlintaste.constant.DBConstant
 import com.va.kotlintaste.service.BackPushService
 import com.va.kotlintaste.util.ProcessUtils

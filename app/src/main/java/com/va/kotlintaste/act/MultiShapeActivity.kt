@@ -1,7 +1,8 @@
-package com.va.kotlintaste
+package com.va.kotlintaste.act
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.va.kotlintaste.R
 import kotlinx.android.synthetic.main.activity_mutli_shape.*
 
 class MultiShapeActivity : AppCompatActivity() {
