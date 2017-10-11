@@ -54,7 +54,7 @@ class ListActivity : AppCompatActivity() {
 
     class TAdapter : BaseAdapter() {
 
-        var mData: List<String>? = null
+        private var mData: List<String>? = null
             set(value) {
                 field = value
             }
@@ -63,8 +63,7 @@ class ListActivity : AppCompatActivity() {
             }
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            var view = LayoutInflater.from(parent?.context).inflate(R.layout.item_list, null)
-            return view
+            return LayoutInflater.from(parent?.context).inflate(R.layout.item_list, null)
         }
 
         override fun getItem(position: Int): Any {
