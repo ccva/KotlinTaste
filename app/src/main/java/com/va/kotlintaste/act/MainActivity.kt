@@ -10,12 +10,16 @@ import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import android.widget.RemoteViews
 import com.va.kotlintaste.R
+import com.va.kotlintaste.config.GlobalConfig
 import com.va.kotlintaste.toast
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    private var globalConfig: GlobalConfig? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -44,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         btn_image.setOnClickListener { startActivity(Intent(this, ImageTestActivity::class.java)) }
 
         btn_list.setOnClickListener { startActivity(Intent(this, ListActivity::class.java)) }
+
+        tv_show.text = globalConfig?.appName
     }
 
 
