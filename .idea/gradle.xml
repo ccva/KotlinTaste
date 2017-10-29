@@ -9,6 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/daggerdemo" />
+            <option value="$PROJECT_DIR$/perfect.base" />
+            <option value="$PROJECT_DIR$/perfect.main" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
