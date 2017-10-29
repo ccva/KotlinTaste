@@ -1,7 +1,5 @@
 package com.va.perfect.net.util;
 
-import android.support.annotation.NonNull;
-
 import java.util.Map;
 
 /**

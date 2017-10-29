@@ -6,7 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/daggerdemo/daggerdemo.iml" filepath="$PROJECT_DIR$/daggerdemo/daggerdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/perfect.base/perfect.base.iml" filepath="$PROJECT_DIR$/perfect.base/perfect.base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/perfect.main/perfect.iml" filepath="$PROJECT_DIR$/perfect.main/perfect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/perfect.main/perfect.main.iml" filepath="$PROJECT_DIR$/perfect.main/perfect.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/perfect.va/perfect.va.iml" filepath="$PROJECT_DIR$/perfect.va/perfect.va.iml" />
     </modules>
   </component>
 </project>
