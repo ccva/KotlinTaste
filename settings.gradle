@@ -1,1 +1,1 @@
-include ':app', ':daggerdemo', ':perfect.main', ':perfect.base'
+include ':app', ':daggerdemo', ':perfect.main', ':perfect.base', ':perfect.va'

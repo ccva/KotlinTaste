@@ -1,6 +1,7 @@
 package com.va.perfect.net.api;
 
-import java.util.Map;
+import com.va.perfect.net.dao.result.CategoryDao;
+
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,10 +14,9 @@ public interface JuHeApi {
 
     /**
      * 获取 电视节目单
-     * @param params
      * @return
      */
     @GET("tv/getCategory")
-    Call<String> getCategory(Map<Object, Object> params);
+    Call<CategoryDao> getCategory();
 
 }
