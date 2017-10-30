@@ -32,21 +32,22 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:multidex:1.0.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+    testImplementation "junit:junit:4.12"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    implementation "com.android.support:appcompat-v7:$rootProject.appcompatVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
     implementation project(':perfect.base')
-    implementation 'com.android.support:support-v4:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile "com.android.support:multidex:$rootProject.multidexVersion"
+    implementation "com.android.support:support-v4:$rootProject.appcompatVersion"
+    implementation "com.android.support:design:$rootProject.designVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2Version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.retrofit2Version"
+    implementation "org.ligboy.retrofit2:converter-fastjson-android:$rootProject.fastjsoncoverterVersion"
+    implementation "com.squareup.okhttp3:okhttp:$rootProject.okhttp3Version"
 }
