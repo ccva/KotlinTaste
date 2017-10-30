@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * Created by cjm on 17-10-29.
+ *
+ * @author cjm
+ * @date 17-10-29
  */
 
 public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> {
@@ -32,6 +34,13 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         this.mLayoutInflater = LayoutInflater.from(mContext);
     }
 
+    /**
+     * 创建 ViewHolder
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public abstract BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType);
 

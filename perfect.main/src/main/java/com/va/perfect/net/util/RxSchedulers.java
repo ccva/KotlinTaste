@@ -7,6 +7,8 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * @author Junmeng.Chen
  * @date 2017/10/30
+ *
+ * RxJava 线程操作工具类
  */
 
 public final class RxSchedulers {

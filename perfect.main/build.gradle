@@ -33,17 +33,17 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation "junit:junit:4.12"
+    testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    implementation "com.android.support:support-v4:$rootProject.supportVersion"
     implementation "com.android.support:appcompat-v7:$rootProject.appcompatVersion"
+    implementation "com.android.support:design:$rootProject.designVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
     implementation project(':perfect.base')
-    compile "com.android.support:multidex:$rootProject.multidexVersion"
-    implementation "com.android.support:support-v4:$rootProject.appcompatVersion"
-    implementation "com.android.support:design:$rootProject.designVersion"
+    implementation "com.android.support:multidex:$rootProject.multidexVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit2Version"

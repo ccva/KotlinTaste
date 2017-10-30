@@ -76,7 +76,6 @@ public class CategoryFragment extends Fragment {
 
         mChannelAdapter.setOnItemClickListener(position -> jumpToProgram(position));
 
-
     }
 
     private void jumpToProgram(int position) {
@@ -85,7 +84,7 @@ public class CategoryFragment extends Fragment {
 
     private void jumpToProgramList(ChannelBean channelBean) {
         String rel = channelBean.getRel();
-        ProgramListActivity.launch(getContext(), rel);
+        ProgramListActivity.launch(getContext(), rel, channelBean.getChannelName());
     }
 
     private void initDefault() {

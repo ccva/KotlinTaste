@@ -1,8 +1,11 @@
 package com.va.perfect.main;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
@@ -47,7 +50,7 @@ public class MainActivity extends BaseActivity {
         CategoryFragment categoryFragment = CategoryFragment.newInstance();
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fl_container,categoryFragment);
+        fragmentTransaction.add(R.id.fl_container, categoryFragment);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
