@@ -7,24 +7,25 @@ import android.widget.TextView;
 import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.base.adapter.BaseRecyclerViewHolder;
-import com.va.perfect.net.dao.result.CategoryDao;
-import com.va.perfect.net.dao.result.ChannelDao;
+import com.va.perfect.net.dao.result.ChannelBean;
 
 import java.util.List;
 
 /**
- * Created by cjm on 17-10-30.
+ *
+ * @author cjm
+ * @date 17-10-30
  */
 
-public class ChannelAdapter extends BaseRecyclerAdapter<ChannelDao.ChannelBean> {
+public class ChannelAdapter extends BaseRecyclerAdapter<ChannelBean> {
 
-    public ChannelAdapter(Context mContext, List<ChannelDao.ChannelBean> mDataList) {
+    public ChannelAdapter(Context mContext, List<ChannelBean> mDataList) {
         super(mContext, mDataList);
     }
 
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new BaseRecyclerViewHolder(mLayoutInflater.inflate(R.layout.item_category, null));
+        return new BaseRecyclerViewHolder(mLayoutInflater.inflate(R.layout.item_category, parent,false));
     }
 
     @Override
@@ -32,7 +33,7 @@ public class ChannelAdapter extends BaseRecyclerAdapter<ChannelDao.ChannelBean> 
         super.onBindViewHolder(holder, position);
         TextView tvName = holder.itemView.findViewById(R.id.tv_name);
 
-        ChannelDao.ChannelBean categoryBean = mDataList.get(position);
+        ChannelBean categoryBean = mDataList.get(position);
         tvName.setText(categoryBean.getChannelName());
     }
 }

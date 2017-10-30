@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.va.perfect.R;
-import com.va.perfect.net.dao.result.CategoryDao;
-import com.va.perfect.net.dao.result.ChannelDao;
+import com.va.perfect.net.dao.result.CategoryBean;
+import com.va.perfect.net.dao.result.ChannelBean;
 import com.va.perfect.net.retrofit.RetrofitService;
-import com.va.perfect.net.util.RequestUtils;
+import com.va.perfect.net.util.RxSchedulers;
 import com.va.perfect.tv.adapter.CategoryAdapter;
 import com.va.perfect.tv.adapter.ChannelAdapter;
 
@@ -22,11 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author junmeng.chen
  */
 public class CategoryFragment extends Fragment {
 
@@ -34,10 +32,10 @@ public class CategoryFragment extends Fragment {
 
     RecyclerView lvChannel;
 
-    private List<CategoryDao.CategoryBean> mCategoryBeanList = new ArrayList<>();
+    private List<CategoryBean> mCategoryBeanList = new ArrayList<>();
     private CategoryAdapter mCategoryAdapter;
 
-    private List<ChannelDao.ChannelBean> mChannelBeanList = new ArrayList<>();
+    private List<ChannelBean> mChannelBeanList = new ArrayList<>();
     private ChannelAdapter mChannelAdapter;
 
     public static CategoryFragment newInstance() {
@@ -76,7 +74,18 @@ public class CategoryFragment extends Fragment {
         mChannelAdapter = new ChannelAdapter(getContext(), mChannelBeanList);
         lvChannel.setAdapter(mChannelAdapter);
 
+        mChannelAdapter.setOnItemClickListener(position -> jumpToProgram(position));
 
+
+    }
+
+    private void jumpToProgram(int position) {
+        jumpToProgramList(mChannelBeanList.get(position));
+    }
+
+    private void jumpToProgramList(ChannelBean channelBean) {
+        String rel = channelBean.getRel();
+        ProgramListActivity.launch(getContext(), rel);
     }
 
     private void initDefault() {
@@ -84,10 +93,13 @@ public class CategoryFragment extends Fragment {
     }
 
     private void getCategoryInfo() {
-        RetrofitService.juHeApi.getCategory(RequestUtils.SIGN_KEY).subscribeOn(Schedulers.io()).map(categoryDao -> categoryDao.getResult()).observeOn(AndroidSchedulers.mainThread()).subscribe(categoryBeans -> notifyCategoryData(categoryBeans));
+        RetrofitService.juHeApi.getCategory()
+                .map(categoryDao -> categoryDao.getResult())
+                .compose(RxSchedulers.io_main())
+                .subscribe(categoryBeans -> notifyCategoryData(categoryBeans));
     }
 
-    private void notifyCategoryData(List<CategoryDao.CategoryBean> categoryBeans) {
+    private void notifyCategoryData(List<CategoryBean> categoryBeans) {
         mCategoryBeanList.clear();
         mCategoryBeanList.addAll(categoryBeans);
         mCategoryAdapter.notifyDataSetChanged();
@@ -96,18 +108,16 @@ public class CategoryFragment extends Fragment {
 
     private void getChannelInfo(int id) {
         Map<String, Object> params = new HashMap<>();
-        params.put("key", RequestUtils.SIGN_KEY);
         params.put("pId", String.valueOf(id));
 
         RetrofitService.juHeApi.getChannel(params)
-                .subscribeOn(Schedulers.io())
-                .map(channelDao -> channelDao.getResult())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(channelBeans -> notifyChannelData(channelBeans),throwable -> {});
+                .map(channelBeanJuHeHttpResult -> channelBeanJuHeHttpResult.getResult())
+                .compose(RxSchedulers.io_main())
+                .subscribe(channelBeans -> notifyChannelData(channelBeans));
 
     }
 
-    private void notifyChannelData(List<ChannelDao.ChannelBean> channelBeans) {
+    private void notifyChannelData(List<ChannelBean> channelBeans) {
         mChannelBeanList.clear();
         mChannelBeanList.addAll(channelBeans);
         mChannelAdapter.notifyDataSetChanged();
