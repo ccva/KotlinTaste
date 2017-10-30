@@ -3,6 +3,7 @@ package com.va.perfect.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.va.perfect.R;
@@ -18,11 +19,15 @@ import java.util.List;
 
 public abstract class BaseListActivity<T> extends BaseActivity implements BaseRecyclerAdapter.OnItemClickListener {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private RecyclerView recyclerView;
 
     protected BaseRecyclerAdapter<T> mRecyclerAdapter;
 
     protected List<T> mDataList = new ArrayList<>();
+
+    private boolean needShowRefreshAnim = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +35,8 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
         setContentView(R.layout.activity_base_list);
 
         getResult(getIntent());
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
 
         recyclerView = findViewById(R.id.recycler_view);
 
@@ -47,6 +54,15 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
 
         initDefault();
 
+        if (needShowRefreshAnim) {
+            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        }
+
+        refreshData();
+
+    }
+
+    protected void refreshData() {
     }
 
     protected void getResult(Intent intent) {
@@ -73,9 +89,16 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
 
     private void initEvent() {
 
+        swipeRefreshLayout.setOnRefreshListener(() -> refreshData());
+
         if (mRecyclerAdapter != null) {
             mRecyclerAdapter.setOnItemClickListener(this);
         }
+    }
+
+
+    protected void completeRefresh() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     protected void notifyDataSetChanged() {

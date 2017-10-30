@@ -62,6 +62,10 @@ public class ProgramListActivity extends BaseListActivity<ProgramBean> {
     @Override
     protected void initDefault() {
         setTitle(mChannel);
+    }
+
+    @Override
+    protected void refreshData() {
         getProgramInfo(mCode, "");
     }
 
@@ -75,9 +79,9 @@ public class ProgramListActivity extends BaseListActivity<ProgramBean> {
         RetrofitService.juHeApi.getProgram(params)
                 .map(listJuHeHttpResult -> listJuHeHttpResult.getResult())
                 .compose(RxSchedulers.io_main())
-                .subscribe(programBeans -> notifyProgramBean(programBeans), throwable -> {
-                    Log.e(TAG, "getProgramInfo: ", throwable);
-                });
+                .subscribe(programBeans -> notifyProgramBean(programBeans),
+                        throwable -> Log.e(TAG, "getProgramInfo: ", throwable),
+                        () -> completeRefresh());
     }
 
     private void notifyProgramBean(List<ProgramBean> programBeans) {
