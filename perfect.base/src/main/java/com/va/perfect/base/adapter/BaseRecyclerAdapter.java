@@ -28,9 +28,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         this.onItemClickListener = onItemClickListener;
     }
 
-    public BaseRecyclerAdapter(Context mContext, List<T> mDataList) {
+    public BaseRecyclerAdapter(Context mContext, List<T> dataList) {
         this.mContext = mContext;
-        this.mDataList = mDataList;
+        this.mDataList = dataList;
         this.mLayoutInflater = LayoutInflater.from(mContext);
     }
 
@@ -61,7 +61,18 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
                 onItemClickListener.onItemClick(position);
             }
         });
+
+        onBindView(holder, position);
+
     }
+
+    /**
+     * 绑定视图
+     *
+     * @param holder
+     * @param position
+     */
+    protected abstract void onBindView(BaseRecyclerViewHolder holder, int position);
 
     public boolean isMutliItemViewType() {
         return false;

@@ -4,23 +4,36 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 
 import com.va.perfect.R;
 import com.va.perfect.activity.BaseActivity;
+import com.va.perfect.joke.JokeFragment;
 import com.va.perfect.tv.CategoryFragment;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author cjm
  */
 public class MainActivity extends BaseActivity {
 
+    private String[] mMenuItems = {"tv", "joke"};
+
+    DrawerLayout drawerLayout;
+
     FrameLayout flContainer;
 
-    ListView lvMenu;
+    RecyclerView recyclerView;
+
+    private MainMenuAdapter mMenuAdapter;
+
+    private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,29 +42,62 @@ public class MainActivity extends BaseActivity {
 
         initView();
 
+        initFragmentList();
+
         initEvent();
 
         initDefault();
     }
 
     private void initView() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+
         flContainer = findViewById(R.id.fl_container);
 
-        lvMenu = findViewById(R.id.lv_menu);
+        recyclerView = findViewById(R.id.recycler_view);
+
+        recyclerView.setNestedScrollingEnabled(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+
+        mMenuAdapter = new MainMenuAdapter(getBaseContext(), Arrays.asList(mMenuItems));
+
+        recyclerView.setAdapter(mMenuAdapter);
+    }
+
+    private void initFragmentList() {
+        fragmentList.clear();
+        fragmentList.add(CategoryFragment.newInstance());
+        fragmentList.add(JokeFragment.newInstance());
     }
 
     private void initEvent() {
-        lvMenu.setOnItemClickListener((parent, view, position, id) -> {
-
+        mMenuAdapter.setOnItemClickListener(position -> {
+            changeFragment(position);
+            drawerLayout.closeDrawers();
         });
     }
 
-    private void initDefault() {
-        CategoryFragment categoryFragment = CategoryFragment.newInstance();
+    private void changeFragment(int position) {
+        Fragment fragment = fragmentList.get(position);
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fl_container, categoryFragment);
+        for (Fragment fragment1 : fragmentList) {
+            if (!fragment1.isHidden()) {
+                fragmentTransaction.hide(fragment1);
+            }
+        }
+
+        if (fragment.isAdded()) {
+            fragmentTransaction.show(fragment);
+        } else {
+            fragmentTransaction.add(R.id.fl_container, fragment).show(fragment);
+        }
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    private void initDefault() {
+        changeFragment(0);
     }
 
 }

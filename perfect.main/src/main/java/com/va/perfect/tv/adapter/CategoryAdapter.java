@@ -7,9 +7,10 @@ import android.widget.TextView;
 import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.base.adapter.BaseRecyclerViewHolder;
-import com.va.perfect.net.dao.result.CategoryBean;
+import com.va.perfect.net.dao.tv.CategoryBean;
 
 import java.util.List;
+
 
 /**
  * @author cjm
@@ -29,8 +30,7 @@ public class CategoryAdapter extends BaseRecyclerAdapter<CategoryBean> {
     }
 
     @Override
-    public void onBindViewHolder(BaseRecyclerViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
+    protected void onBindView(BaseRecyclerViewHolder holder, int position) {
         TextView tvName = holder.itemView.findViewById(R.id.tv_name);
 
         CategoryBean categoryBean = mDataList.get(position);

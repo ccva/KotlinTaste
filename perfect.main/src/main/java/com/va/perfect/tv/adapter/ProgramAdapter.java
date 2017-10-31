@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.base.adapter.BaseRecyclerViewHolder;
-import com.va.perfect.net.dao.result.ProgramBean;
+import com.va.perfect.net.dao.tv.ProgramBean;
 
 import java.util.List;
 
@@ -28,8 +28,7 @@ public class ProgramAdapter extends BaseRecyclerAdapter<ProgramBean> {
     }
 
     @Override
-    public void onBindViewHolder(BaseRecyclerViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
+    protected void onBindView(BaseRecyclerViewHolder holder, int position) {
         TextView tvName = holder.itemView.findViewById(R.id.tv_program_name);
         TextView tvTime = holder.itemView.findViewById(R.id.tv_program_time);
 

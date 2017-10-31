@@ -1,10 +1,11 @@
-package com.va.perfect.activity;
+package com.va.perfect.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
@@ -14,14 +15,14 @@ import java.util.List;
 
 /**
  * @author Junmeng.Chen
- * @date 2017/10/30
+ * @date 2017/10/31
  */
 
-public abstract class BaseListActivity<T> extends BaseActivity implements BaseRecyclerAdapter.OnItemClickListener {
+public abstract class BaseListFragment<T> extends BaseFragment implements BaseRecyclerAdapter.OnItemClickListener {
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
 
-    private RecyclerView recyclerView;
+    RecyclerView recyclerView;
 
     protected BaseRecyclerAdapter<T> mRecyclerAdapter;
 
@@ -30,15 +31,21 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
     private boolean needShowRefreshAnim = true;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_list);
+    protected View inflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_base_list, container, false);
+        initView(view);
 
-        getResult(getIntent());
+        initList();
 
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        return view;
+    }
 
-        recyclerView = findViewById(R.id.recycler_view);
+    private void initView(View view) {
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        recyclerView = view.findViewById(R.id.recycler_view);
+    }
+
+    private void initList() {
 
         setRecyclerConfig(recyclerView);
 
@@ -54,13 +61,9 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
 
         initDefault();
 
-        needShowRefreshAnim = isNeedShowRefreshAnim();
+    }
 
-        if (needShowRefreshAnim) {
-            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
-        }
-
-        refreshData();
+    private void initDefault() {
 
     }
 
@@ -68,40 +71,26 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
         return true;
     }
 
-    protected void refreshData() {
-    }
-
-    protected void getResult(Intent intent) {
-
-    }
-
-    protected void initDefault() {
-
-    }
-
     /**
-     * 设置 RecyclerView 配置
-     *
+     * 配置 RecyclerView
      * @param recyclerView
      */
     protected abstract void setRecyclerConfig(RecyclerView recyclerView);
 
     /**
-     * 设置 适配器
+     * 设置 RecyclerView适配器
      *
      * @return
      */
-    protected abstract BaseRecyclerAdapter setAdapter();
+    protected abstract BaseRecyclerAdapter<T> setAdapter();
 
     private void initEvent() {
-
         swipeRefreshLayout.setOnRefreshListener(() -> refreshData());
 
         if (mRecyclerAdapter != null) {
             mRecyclerAdapter.setOnItemClickListener(this);
         }
     }
-
 
     protected void completeRefresh() {
         swipeRefreshLayout.setRefreshing(false);

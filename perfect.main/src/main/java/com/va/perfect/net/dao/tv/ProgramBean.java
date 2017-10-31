@@ -1,4 +1,4 @@
-package com.va.perfect.net.dao.result;
+package com.va.perfect.net.dao.tv;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.va.perfect.net.dao.result;
+package com.va.perfect.net.dao.tv;
 
 /**
  * Created by cjm on 17-10-29.

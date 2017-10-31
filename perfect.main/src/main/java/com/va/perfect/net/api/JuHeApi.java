@@ -1,9 +1,11 @@
 package com.va.perfect.net.api;
 
-import com.va.perfect.net.dao.result.CategoryBean;
-import com.va.perfect.net.dao.result.ChannelBean;
+
+import com.va.perfect.net.dao.joke.JokeBean;
 import com.va.perfect.net.dao.result.JuHeHttpResult;
-import com.va.perfect.net.dao.result.ProgramBean;
+import com.va.perfect.net.dao.tv.CategoryBean;
+import com.va.perfect.net.dao.tv.ChannelBean;
+import com.va.perfect.net.dao.tv.ProgramBean;
 
 import java.util.List;
 import java.util.Map;
@@ -45,5 +47,12 @@ public interface JuHeApi {
      */
     @GET("tv/getProgram")
     Observable<JuHeHttpResult<List<ProgramBean>>> getProgram(@QueryMap Map<String, Object> params);
+
+    /**
+     *
+     * @return
+     */
+    @GET("joke/randJoke.php")
+    Observable<JuHeHttpResult<List<JokeBean>>> getJokeList();
 
 }

@@ -1,9 +1,11 @@
-package com.va.perfect.net.dao.result;
+package com.va.perfect.net.dao.tv;
 
 import java.io.Serializable;
 
 /**
- * Created by cjm on 17-10-29.
+ *
+ * @author cjm
+ * @date 17-10-29
  */
 
 

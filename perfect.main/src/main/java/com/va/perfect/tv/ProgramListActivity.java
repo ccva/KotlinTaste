@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.va.perfect.activity.BaseListActivity;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
-import com.va.perfect.net.dao.result.ProgramBean;
+import com.va.perfect.net.dao.tv.ProgramBean;
 import com.va.perfect.net.retrofit.RetrofitService;
 import com.va.perfect.net.util.RxSchedulers;
 import com.va.perfect.tv.adapter.ProgramAdapter;
@@ -62,6 +62,11 @@ public class ProgramListActivity extends BaseListActivity<ProgramBean> {
     @Override
     protected void initDefault() {
         setTitle(mChannel);
+    }
+
+    @Override
+    protected boolean isNeedShowRefreshAnim() {
+        return false;
     }
 
     @Override

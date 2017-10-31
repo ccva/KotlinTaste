@@ -1,39 +1,37 @@
-package com.va.perfect.main;
+package com.va.perfect.joke.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.base.adapter.BaseRecyclerViewHolder;
+import com.va.perfect.net.dao.joke.JokeBean;
 
 import java.util.List;
 
 /**
  * @author Junmeng.Chen
- * @date 2017/10/30
+ * @date 2017/10/31
  */
 
-public class MainMenuAdapter extends BaseRecyclerAdapter<String> {
+public class JokeAdapter extends BaseRecyclerAdapter<JokeBean> {
 
-    public MainMenuAdapter(Context mContext, List<String> mDataList) {
+    public JokeAdapter(Context mContext, List<JokeBean> mDataList) {
         super(mContext, mDataList);
     }
 
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_menu, parent, false);
-        BaseRecyclerViewHolder viewHolder = new BaseRecyclerViewHolder(view);
-        return viewHolder;
+        return new BaseRecyclerViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_joke, parent, false));
     }
 
     @Override
     protected void onBindView(BaseRecyclerViewHolder holder, int position) {
-        String name = mDataList.get(position);
-        TextView tv = holder.itemView.findViewById(R.id.tv_name);
-        tv.setText(name);
+        JokeBean jokeBean = mDataList.get(position);
+        TextView tvContent = holder.itemView.findViewById(R.id.tv_content);
+        tvContent.setText(jokeBean.getContent());
     }
 }

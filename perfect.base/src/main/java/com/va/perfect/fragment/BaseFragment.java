@@ -1,6 +1,12 @@
 package com.va.perfect.fragment;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * @author Junmeng.Chen
@@ -8,6 +14,10 @@ import android.support.v4.app.Fragment;
  */
 
 public abstract class BaseFragment extends Fragment {
+
+    protected View mRootView;
+
+    protected Context mContext;
 
     private boolean needLazyLoading = true;
 
@@ -30,28 +40,46 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
+    }
+
+    @Nullable
+    @Override
+    public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return mRootView = inflaterRootView(inflater, container, savedInstanceState);
+    }
+
+    /**
+     * 设置 Fragment的填充视图
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
+    protected abstract View inflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+
+    @Override
     public void onStart() {
         super.onStart();
-
         if (needLoadOnStart) {
-
             if (needLazyLoading) {
-
                 if (getUserVisibleHint()) {
                     refreshData();
                 }
-
+            } else {
+                refreshData();
             }
-
         }
-
-
     }
 
     /**
      * 在onStart的生命周期 刷新数据
      */
     protected void refreshData() {
+
     }
 
 }

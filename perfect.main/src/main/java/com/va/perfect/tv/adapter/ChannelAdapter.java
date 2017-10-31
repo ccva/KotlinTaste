@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.base.adapter.BaseRecyclerViewHolder;
-import com.va.perfect.net.dao.result.ChannelBean;
+import com.va.perfect.net.dao.tv.ChannelBean;
 
 import java.util.List;
 
@@ -29,8 +29,7 @@ public class ChannelAdapter extends BaseRecyclerAdapter<ChannelBean> {
     }
 
     @Override
-    public void onBindViewHolder(BaseRecyclerViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
+    protected void onBindView(BaseRecyclerViewHolder holder, int position) {
         TextView tvName = holder.itemView.findViewById(R.id.tv_name);
 
         ChannelBean categoryBean = mDataList.get(position);

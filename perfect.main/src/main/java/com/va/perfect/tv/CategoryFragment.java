@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.va.perfect.R;
-import com.va.perfect.net.dao.result.CategoryBean;
-import com.va.perfect.net.dao.result.ChannelBean;
+
+import com.va.perfect.net.dao.tv.CategoryBean;
+import com.va.perfect.net.dao.tv.ChannelBean;
 import com.va.perfect.net.retrofit.RetrofitService;
 import com.va.perfect.net.util.RxSchedulers;
 import com.va.perfect.tv.adapter.CategoryAdapter;

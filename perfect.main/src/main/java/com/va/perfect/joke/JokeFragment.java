@@ -2,19 +2,21 @@ package com.va.perfect.joke;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import com.va.perfect.R;
-import com.va.perfect.fragment.BaseFragment;
+import com.va.perfect.base.adapter.BaseRecyclerAdapter;
+import com.va.perfect.fragment.BaseListFragment;
+import com.va.perfect.joke.adapter.JokeAdapter;
+import com.va.perfect.net.dao.joke.JokeBean;
+import com.va.perfect.net.retrofit.RetrofitService;
+import com.va.perfect.net.util.RxSchedulers;
 
 
 /**
  * @author cjm
  */
-public class JokeFragment extends BaseFragment {
+public class JokeFragment extends BaseListFragment<JokeBean> {
 
     public static JokeFragment newInstance() {
 
@@ -29,12 +31,34 @@ public class JokeFragment extends BaseFragment {
 
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_joke, container, false);
+    protected boolean isNeedShowRefreshAnim() {
+        return false;
     }
 
+    @Override
+    protected void setRecyclerConfig(RecyclerView recyclerView) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+
+    }
+
+    @Override
+    protected BaseRecyclerAdapter setAdapter() {
+        return new JokeAdapter(mContext, mDataList);
+    }
+
+    @Override
+    protected void refreshData() {
+        RetrofitService.juHeApi.getJokeList()
+                .map(listJuHeHttpResult -> listJuHeHttpResult.getResult())
+                .compose(RxSchedulers.io_main())
+                .subscribe(jokeBeans -> notifyDataSetChanged(),
+                        throwable -> {},
+                        () -> completeRefresh());
+    }
+
+    @Override
+    public boolean isNeedLoadOnStart() {
+        return true;
+    }
 }
