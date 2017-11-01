@@ -30,6 +30,8 @@ public abstract class BaseListFragment<T> extends BaseFragment implements BaseRe
 
     private boolean needShowRefreshAnim = true;
 
+    public boolean isFirstLoad = true;
+
     @Override
     protected View inflaterRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_base_list, container, false);
@@ -69,6 +71,11 @@ public abstract class BaseListFragment<T> extends BaseFragment implements BaseRe
 
     protected boolean isNeedShowRefreshAnim() {
         return true;
+    }
+
+    public void onFirstLoad() {
+        swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        refreshData();
     }
 
     /**

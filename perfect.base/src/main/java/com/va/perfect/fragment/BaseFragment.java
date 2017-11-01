@@ -67,7 +67,12 @@ public abstract class BaseFragment extends Fragment {
         if (needLoadOnStart) {
             if (needLazyLoading) {
                 if (getUserVisibleHint()) {
-                    refreshData();
+                    if (this instanceof BaseListFragment && ((BaseListFragment) this).isFirstLoad) {
+                        ((BaseListFragment) this).onFirstLoad();
+                        ((BaseListFragment) this).isFirstLoad = false;
+                    } else {
+                        refreshData();
+                    }
                 }
             } else {
                 refreshData();

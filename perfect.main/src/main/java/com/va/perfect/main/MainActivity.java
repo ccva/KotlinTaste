@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity {
 
-    private String[] mMenuItems = {"tv", "joke"};
+    private String[] mMenuItems = {"Tv", "Joke"};
 
     DrawerLayout drawerLayout;
 
@@ -75,6 +75,7 @@ public class MainActivity extends BaseActivity {
         mMenuAdapter.setOnItemClickListener(position -> {
             changeFragment(position);
             drawerLayout.closeDrawers();
+            setTitle(mMenuItems[position]);
         });
     }
 
@@ -97,7 +98,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initDefault() {
-        changeFragment(0);
+
+        recyclerView.post(() -> recyclerView.getChildAt(0).performClick());
     }
 
 }

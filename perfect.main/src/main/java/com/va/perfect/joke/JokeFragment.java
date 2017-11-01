@@ -37,7 +37,7 @@ public class JokeFragment extends BaseListFragment<JokeBean> {
 
     @Override
     protected boolean isNeedShowRefreshAnim() {
-        return false;
+        return true;
     }
 
     @Override
