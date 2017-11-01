@@ -47,7 +47,7 @@ public class RetrofitService {
             .with(new OkHttpClient.Builder())
 //            .addInterceptor(new RequestCacheInterceptor())
 //            .addInterceptor(new ResponseCacheInterceptor())
-            .cache(cache)
+//            .cache(cache)
             .connectTimeout(10, TimeUnit.SECONDS)
             .build();
 

@@ -57,6 +57,7 @@ public class JokeFragment extends BaseListFragment<JokeBean> {
                 .map(listJuHeHttpResult -> listJuHeHttpResult.getResult())
                 .compose(RxSchedulers.io_main())
                 .subscribe(jokeBeans -> {
+                            mDataList.clear();
                             mDataList.addAll(jokeBeans);
                             notifyDataSetChanged();
                         },
