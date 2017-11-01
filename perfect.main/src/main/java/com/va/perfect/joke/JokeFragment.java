@@ -5,18 +5,22 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.fragment.BaseListFragment;
 import com.va.perfect.joke.adapter.JokeAdapter;
+import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.joke.JokeBean;
 import com.va.perfect.net.retrofit.RetrofitService;
-import com.va.perfect.net.util.RxSchedulers;
+import com.va.perfect.util.RxSchedulers;
 
 
 /**
  * @author cjm
  */
 public class JokeFragment extends BaseListFragment<JokeBean> {
+
+    public static final String TAG = JokeFragment.class.getSimpleName();
 
     public static JokeFragment newInstance() {
 
@@ -49,11 +53,14 @@ public class JokeFragment extends BaseListFragment<JokeBean> {
 
     @Override
     protected void refreshData() {
-        RetrofitService.juHeApi.getJokeList()
+        RetrofitService.juHeApi.getJokeList(ApiConstant.JOKE_SIGN_KEY)
                 .map(listJuHeHttpResult -> listJuHeHttpResult.getResult())
                 .compose(RxSchedulers.io_main())
-                .subscribe(jokeBeans -> notifyDataSetChanged(),
-                        throwable -> {},
+                .subscribe(jokeBeans -> {
+                            mDataList.addAll(jokeBeans);
+                            notifyDataSetChanged();
+                        },
+                        throwable -> LogUtils.i(TAG, throwable.getMessage()),
                         () -> completeRefresh());
     }
 

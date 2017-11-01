@@ -1,4 +1,4 @@
-package com.va.perfect.net.util;
+package com.va.perfect.util;
 
 /**
  *

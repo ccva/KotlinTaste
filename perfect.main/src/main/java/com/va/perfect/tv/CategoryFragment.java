@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 
 import com.va.perfect.R;
 
+import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.tv.CategoryBean;
 import com.va.perfect.net.dao.tv.ChannelBean;
 import com.va.perfect.net.retrofit.RetrofitService;
-import com.va.perfect.net.util.RxSchedulers;
+import com.va.perfect.util.RxSchedulers;
 import com.va.perfect.tv.adapter.CategoryAdapter;
 import com.va.perfect.tv.adapter.ChannelAdapter;
 
@@ -93,7 +94,7 @@ public class CategoryFragment extends Fragment {
     }
 
     private void getCategoryInfo() {
-        RetrofitService.juHeApi.getCategory()
+        RetrofitService.juHeApi.getCategory(ApiConstant.TV_SIGN_KEY)
                 .map(categoryDao -> categoryDao.getResult())
                 .compose(RxSchedulers.io_main())
                 .subscribe(categoryBeans -> notifyCategoryData(categoryBeans));
@@ -109,6 +110,7 @@ public class CategoryFragment extends Fragment {
     private void getChannelInfo(int id) {
         Map<String, Object> params = new HashMap<>();
         params.put("pId", String.valueOf(id));
+        params.put("key", ApiConstant.TV_SIGN_KEY);
 
         RetrofitService.juHeApi.getChannel(params)
                 .map(channelBeanJuHeHttpResult -> channelBeanJuHeHttpResult.getResult())

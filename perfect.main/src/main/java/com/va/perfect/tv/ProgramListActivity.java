@@ -8,9 +8,10 @@ import android.util.Log;
 
 import com.va.perfect.activity.BaseListActivity;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
+import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.tv.ProgramBean;
 import com.va.perfect.net.retrofit.RetrofitService;
-import com.va.perfect.net.util.RxSchedulers;
+import com.va.perfect.util.RxSchedulers;
 import com.va.perfect.tv.adapter.ProgramAdapter;
 
 import java.util.HashMap;
@@ -81,6 +82,7 @@ public class ProgramListActivity extends BaseListActivity<ProgramBean> {
     private void getProgramInfo(String code, String date) {
         Map<String, Object> params = new HashMap<>();
         params.put("code", code);
+        params.put("key", ApiConstant.TV_SIGN_KEY);
         RetrofitService.juHeApi.getProgram(params)
                 .map(listJuHeHttpResult -> listJuHeHttpResult.getResult())
                 .compose(RxSchedulers.io_main())

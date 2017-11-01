@@ -2,6 +2,7 @@ package com.va.perfect.net.retrofit;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.va.kotlintaste.net.retrofit.RetrofitManager;
 import com.va.perfect.app.App;
 import com.va.perfect.net.api.JuHeApi;
 import com.va.perfect.net.constant.ApiConstant;
@@ -42,10 +43,10 @@ public class RetrofitService {
     /**
      * OkHttpClient 配置
      */
-    public static OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .addInterceptor(new AddParamInterceptor())
-            .addInterceptor(new RequestCacheInterceptor())
-            .addInterceptor(new ResponseCacheInterceptor())
+    public static OkHttpClient okHttpClient = RetrofitManager.getInstance()
+            .with(new OkHttpClient.Builder())
+//            .addInterceptor(new RequestCacheInterceptor())
+//            .addInterceptor(new ResponseCacheInterceptor())
             .cache(cache)
             .connectTimeout(10, TimeUnit.SECONDS)
             .build();
@@ -57,7 +58,7 @@ public class RetrofitService {
             .addConverterFactory(FastJsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             //这里建议：- Base URL: 总是以/结尾；- @Url: 不要以/开头
-            .baseUrl(ApiConstant.BASE_URL_JU_HE)
+            .baseUrl(ApiConstant.BASE_URL_JU_HE_TV)
             .client(okHttpClient)
             .build();
 
@@ -77,7 +78,7 @@ public class RetrofitService {
             HttpUrl originalHttpUrl = original.url();
 
             HttpUrl url = originalHttpUrl.newBuilder()
-                    .addQueryParameter("key", ApiConstant.SIGN_KEY)
+                    .addQueryParameter("key", ApiConstant.TV_SIGN_KEY)
                     .build();
 
             Request.Builder requestBuilder = original.newBuilder()
