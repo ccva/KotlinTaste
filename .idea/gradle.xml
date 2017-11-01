@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/daggerdemo" />
             <option value="$PROJECT_DIR$/perfect.base" />
             <option value="$PROJECT_DIR$/perfect.main" />
+            <option value="$PROJECT_DIR$/perfect.net" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -22,6 +22,7 @@ public class App extends Application {
         Utils.init(this);
         RetrofitManager.getInstance().putDomain(ApiConstant.BASE_URL_JU_HE_TV_HEAD_KEY, ApiConstant.BASE_URL_JU_HE_TV);
         RetrofitManager.getInstance().putDomain(ApiConstant.BASE_URL_JU_HE_JOKE_HEAD_KEY, ApiConstant.BASE_URL_JU_HE_JOKE);
+        RetrofitManager.getInstance().putDomain(ApiConstant.BASE_URL_JU_HE_WX_HEAD_KEY, ApiConstant.BASE_URL_JU_HE_WX);
     }
 
     public static Application getContext() {

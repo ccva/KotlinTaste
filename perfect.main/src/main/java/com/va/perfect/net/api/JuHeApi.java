@@ -8,6 +8,7 @@ import com.va.perfect.net.dao.result.JuHeHttpResult;
 import com.va.perfect.net.dao.tv.CategoryBean;
 import com.va.perfect.net.dao.tv.ChannelBean;
 import com.va.perfect.net.dao.tv.ProgramBean;
+import com.va.perfect.net.dao.wx.WxChoiceListBean;
 
 import java.util.List;
 import java.util.Map;
@@ -63,5 +64,14 @@ public interface JuHeApi {
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_JOKE_HEAD_KEY})
     @GET("joke/randJoke.php")
     Observable<JuHeHttpResult<List<JokeBean>>> getJokeList(@Query("key") String key);
+
+    /**
+     * 获取微信精选接口
+     * @param params
+     * @return
+     */
+    @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_WX_HEAD_KEY})
+    @GET("weixin/query")
+    Observable<JuHeHttpResult<WxChoiceListBean>> getWxChoice(@QueryMap Map<String,Object> params);
 
 }

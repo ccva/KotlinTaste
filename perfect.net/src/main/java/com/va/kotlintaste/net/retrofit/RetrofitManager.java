@@ -61,14 +61,14 @@ public class RetrofitManager {
     }
 
     /**
-     * 将 {@link okhttp3.OkHttpClient.Builder} 传入,配置一些本管理器需要的参数
+     * 将 {@link okhttp3.OkHttpClient.Builder} 传入,配置一些本管理器需要的参数,
+     * 主要是通过设置 请求拦截器 拦截发出的请求 通过header 的标记 动态的替换baseUrl
      *
      * @param builder
      * @return
      */
     public OkHttpClient.Builder with(OkHttpClient.Builder builder) {
-        return builder
-                .addInterceptor(mInterceptor);
+        return builder.addInterceptor(mInterceptor);
     }
 
     public RetrofitManager() {
@@ -172,7 +172,6 @@ public class RetrofitManager {
             }
         }
     }
-
 
 
     /**

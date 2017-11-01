@@ -51,6 +51,13 @@ public class JokeFragment extends BaseListFragment<JokeBean> {
         return new JokeAdapter(mContext, mDataList);
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setNeedLoadOnStart(false);
+    }
+
     @Override
     protected void refreshData() {
         RetrofitService.juHeApi.getJokeList(ApiConstant.JOKE_SIGN_KEY)
