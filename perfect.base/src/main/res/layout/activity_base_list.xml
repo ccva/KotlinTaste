@@ -15,4 +15,6 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <include layout="@layout/layout_abnormal" />
+
 </android.support.constraint.ConstraintLayout>

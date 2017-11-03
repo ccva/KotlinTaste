@@ -13,7 +13,9 @@ import com.va.perfect.net.dao.wx.WxChoiceListBean;
 import java.util.List;
 
 /**
- * Created by cjm on 17-11-1.
+ *
+ * @author cjm
+ * @date 17-11-1
  */
 
 public class WxChoiceAdapter extends BaseRecyclerAdapter<WxChoiceListBean.WxChoiceBean> {

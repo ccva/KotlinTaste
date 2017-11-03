@@ -9,35 +9,25 @@ import com.blankj.utilcode.util.LogUtils;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.fragment.BaseListFragment;
 import com.va.perfect.joke.adapter.JokeAdapter;
-import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.joke.JokeBean;
-import com.va.perfect.net.retrofit.RetrofitService;
-import com.va.perfect.util.RxSchedulers;
+
+import java.util.List;
 
 
 /**
  * @author cjm
  */
-public class JokeFragment extends BaseListFragment<JokeBean> {
+public class JokeFragment extends BaseListFragment<JokeBean> implements JokeContact.JokeView {
 
     public static final String TAG = JokeFragment.class.getSimpleName();
 
+    private JokeContact.JokePresenter jokePresenter;
+
     public static JokeFragment newInstance() {
-
         Bundle args = new Bundle();
-
         JokeFragment fragment = new JokeFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public JokeFragment() {
-
-    }
-
-    @Override
-    protected boolean isNeedShowRefreshAnim() {
-        return true;
     }
 
     @Override
@@ -51,6 +41,10 @@ public class JokeFragment extends BaseListFragment<JokeBean> {
         return new JokeAdapter(mContext, mDataList);
     }
 
+    @Override
+    protected void initCreateViewDefault() {
+        jokePresenter = new JokePresenterImpl(this);
+    }
 
     @Override
     public void onStart() {
@@ -60,20 +54,28 @@ public class JokeFragment extends BaseListFragment<JokeBean> {
 
     @Override
     protected void refreshData() {
-        RetrofitService.juHeApi.getJokeList(ApiConstant.JOKE_SIGN_KEY)
-                .map(listJuHeHttpResult -> listJuHeHttpResult.getResult())
-                .compose(RxSchedulers.io_main())
-                .subscribe(jokeBeans -> {
-                            mDataList.clear();
-                            mDataList.addAll(jokeBeans);
-                            notifyDataSetChanged();
-                        },
-                        throwable -> LogUtils.i(TAG, throwable.getMessage()),
-                        () -> completeRefresh());
+        getJokeListData();
+    }
+
+
+    public void getJokeListData() {
+        jokePresenter.getJokeListData();
     }
 
     @Override
-    public boolean isNeedLoadOnStart() {
-        return true;
+    public void setJokeListData(List<JokeBean> jokeBeans) {
+        mDataList.clear();
+        mDataList.addAll(jokeBeans);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void setJokeListDataError(Throwable throwable) {
+        LogUtils.i(TAG, throwable.getMessage());
+    }
+
+    @Override
+    public void setGetDataComplete() {
+        completeRefresh();
     }
 }

@@ -7,22 +7,22 @@ import android.util.Log;
 
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.fragment.BaseListFragment;
-import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.wx.WxChoiceListBean;
-import com.va.perfect.net.retrofit.RetrofitService;
-import com.va.perfect.util.RxSchedulers;
 import com.va.perfect.wx.adapter.WxChoiceAdapter;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
- * Created by cjm on 17-11-1.
+ *
+ * @author cjm
+ * @date 17-11-1
  */
 
-public class WxChoiceFragment extends BaseListFragment<WxChoiceListBean.WxChoiceBean> {
+public class WxChoiceFragment extends BaseListFragment<WxChoiceListBean.WxChoiceBean> implements WxChoiceContact.WxChoiceView {
 
     private int mBeginPage = 1;
+
+    private WxChoiceContact.WxChoicePresenter wxChoicePresenter;
 
     public static WxChoiceFragment newInstance() {
         Bundle args = new Bundle();
@@ -42,6 +42,11 @@ public class WxChoiceFragment extends BaseListFragment<WxChoiceListBean.WxChoice
     }
 
     @Override
+    protected void initCreateViewDefault() {
+        wxChoicePresenter = new WxChoicePresenterImpl(this);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         setNeedLoadOnStart(false);
@@ -49,16 +54,35 @@ public class WxChoiceFragment extends BaseListFragment<WxChoiceListBean.WxChoice
 
     @Override
     protected void refreshData() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("key", ApiConstant.WX_SIGN_KEY);
-        params.put("pno", mBeginPage);
-        params.put("ps", 50);
-        RetrofitService.juHeApi.getWxChoice(params).map(listJuHeHttpResult -> listJuHeHttpResult.getResult().getList()).compose(RxSchedulers.io_main()).subscribe(wxChoices -> {
+        getWxChoiceData(mBeginPage, 50);
+    }
+
+    private void getWxChoiceData(int pno, int ps) {
+        wxChoicePresenter.getWxChoiceData(pno, ps);
+    }
+
+    @Override
+    public void setWxChoiceData(WxChoiceListBean wxChoiceData) {
+        if (wxChoiceData == null) {
+            return;
+        }
+//        if (wxChoiceData.getPs() == 1) {
             mDataList.clear();
-            mDataList.addAll(wxChoices);
-            notifyDataSetChanged();
-            mBeginPage++;
-        }, throwable -> Log.e("cjm", "refreshData: ", throwable), () -> completeRefresh());
+//        }
+        List<WxChoiceListBean.WxChoiceBean> wxChoices = wxChoiceData.getList();
+        mDataList.addAll(wxChoices);
+        notifyDataSetChanged();
+        mBeginPage++;
+    }
+
+    @Override
+    public void setErrorData(Throwable throwable) {
+        Log.e("cjm", "refreshData: ", throwable);
+    }
+
+    @Override
+    public void completeGetWxChoiceData() {
+        completeRefresh();
     }
 
 }

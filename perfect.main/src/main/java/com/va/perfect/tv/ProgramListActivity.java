@@ -11,8 +11,8 @@ import com.va.perfect.base.adapter.BaseRecyclerAdapter;
 import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.tv.ProgramBean;
 import com.va.perfect.net.retrofit.RetrofitService;
-import com.va.perfect.util.RxSchedulers;
 import com.va.perfect.tv.adapter.ProgramAdapter;
+import com.va.perfect.util.RxSchedulers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -87,7 +87,10 @@ public class ProgramListActivity extends BaseListActivity<ProgramBean> {
                 .map(listJuHeHttpResult -> listJuHeHttpResult.getResult())
                 .compose(RxSchedulers.io_main())
                 .subscribe(programBeans -> notifyProgramBean(programBeans),
-                        throwable -> Log.e(TAG, "getProgramInfo: ", throwable),
+                        throwable -> {
+                            Log.e(TAG, "getProgramInfo: ", throwable);
+                            showErrorDataView(throwable);
+                        },
                         () -> completeRefresh());
     }
 

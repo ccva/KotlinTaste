@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
@@ -23,6 +24,10 @@ public abstract class BaseListFragment<T> extends BaseFragment implements BaseRe
     SwipeRefreshLayout swipeRefreshLayout;
 
     RecyclerView recyclerView;
+
+    LinearLayout llEmptyView;
+
+    LinearLayout llErrorView;
 
     protected BaseRecyclerAdapter<T> mRecyclerAdapter;
 
@@ -45,6 +50,9 @@ public abstract class BaseListFragment<T> extends BaseFragment implements BaseRe
     private void initView(View view) {
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         recyclerView = view.findViewById(R.id.recycler_view);
+
+        llEmptyView = view.findViewById(R.id.ll_empty_data);
+        llErrorView = view.findViewById(R.id.ll_error_data);
     }
 
     private void initList() {
@@ -60,8 +68,6 @@ public abstract class BaseListFragment<T> extends BaseFragment implements BaseRe
         recyclerView.setAdapter(mRecyclerAdapter);
 
         initEvent();
-
-        initDefault();
 
     }
 
@@ -106,7 +112,40 @@ public abstract class BaseListFragment<T> extends BaseFragment implements BaseRe
     protected void notifyDataSetChanged() {
         if (mRecyclerAdapter != null) {
             mRecyclerAdapter.notifyDataSetChanged();
+            if (mRecyclerAdapter.getItemCount() == 0) {
+                showEmptyView();
+            } else {
+                hideEmptyView();
+            }
         }
+    }
+
+    protected void showEmptyView() {
+        getEmptyView().setVisibility(View.VISIBLE);
+        getErrorDataView().setVisibility(View.GONE);
+    }
+
+    protected void hideEmptyView() {
+        getEmptyView().setVisibility(View.GONE);
+        getErrorDataView().setVisibility(View.GONE);
+    }
+
+    protected View getEmptyView() {
+        return llEmptyView;
+    }
+
+    protected void showErrorDataView() {
+        getErrorDataView().setVisibility(View.VISIBLE);
+        getEmptyView().setVisibility(View.GONE);
+    }
+
+    protected void hideErrorDataView() {
+        getErrorDataView().setVisibility(View.VISIBLE);
+        getEmptyView().setVisibility(View.GONE);
+    }
+
+    protected View getErrorDataView() {
+        return llErrorView;
     }
 
     @Override

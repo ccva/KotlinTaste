@@ -1,13 +1,11 @@
 package com.va.perfect.net.dao.result;
 
-import java.util.List;
-
 /**
  * @author Junmeng.Chen
  * @date 2017/10/30
  */
 
-public class JuHeHttpResult<T> {
+public class BaseHttpResult<T> {
 
     private int error_code;
     private String reason;

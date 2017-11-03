@@ -4,7 +4,7 @@ package com.va.perfect.net.api;
 import com.va.kotlintaste.net.retrofit.constant.NameConstant;
 import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.joke.JokeBean;
-import com.va.perfect.net.dao.result.JuHeHttpResult;
+import com.va.perfect.net.dao.result.BaseHttpResult;
 import com.va.perfect.net.dao.tv.CategoryBean;
 import com.va.perfect.net.dao.tv.ChannelBean;
 import com.va.perfect.net.dao.tv.ProgramBean;
@@ -34,7 +34,7 @@ public interface JuHeApi {
      */
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_TV_HEAD_KEY})
     @POST("tv/getCategory")
-    Observable<JuHeHttpResult<List<CategoryBean>>> getCategory(@Query("key") String key);
+    Observable<BaseHttpResult<List<CategoryBean>>> getCategory(@Query("key") String key);
 
     /**
      * 获取 电视频道
@@ -44,7 +44,7 @@ public interface JuHeApi {
      */
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_TV_HEAD_KEY})
     @GET("tv/getChannel")
-    Observable<JuHeHttpResult<List<ChannelBean>>> getChannel(@QueryMap Map<String, Object> params);
+    Observable<BaseHttpResult<List<ChannelBean>>> getChannel(@QueryMap Map<String, Object> params);
 
     /**
      * 获取电视界面信息
@@ -54,7 +54,7 @@ public interface JuHeApi {
      */
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_TV_HEAD_KEY})
     @GET("tv/getProgram")
-    Observable<JuHeHttpResult<List<ProgramBean>>> getProgram(@QueryMap Map<String, Object> params);
+    Observable<BaseHttpResult<List<ProgramBean>>> getProgram(@QueryMap Map<String, Object> params);
 
     /**
      * 获取笑话接口
@@ -63,7 +63,7 @@ public interface JuHeApi {
      */
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_JOKE_HEAD_KEY})
     @GET("joke/randJoke.php")
-    Observable<JuHeHttpResult<List<JokeBean>>> getJokeList(@Query("key") String key);
+    Observable<BaseHttpResult<List<JokeBean>>> getJokeList(@Query("key") String key);
 
     /**
      * 获取微信精选接口
@@ -72,6 +72,6 @@ public interface JuHeApi {
      */
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_WX_HEAD_KEY})
     @GET("weixin/query")
-    Observable<JuHeHttpResult<WxChoiceListBean>> getWxChoice(@QueryMap Map<String,Object> params);
+    Observable<BaseHttpResult<WxChoiceListBean>> getWxChoice(@QueryMap Map<String,Object> params);
 
 }
