@@ -13,7 +13,6 @@ import com.va.perfect.wx.adapter.WxChoiceAdapter;
 import java.util.List;
 
 /**
- *
  * @author cjm
  * @date 17-11-1
  */
@@ -66,9 +65,7 @@ public class WxChoiceFragment extends BaseListFragment<WxChoiceListBean.WxChoice
         if (wxChoiceData == null) {
             return;
         }
-//        if (wxChoiceData.getPs() == 1) {
-            mDataList.clear();
-//        }
+        mDataList.clear();
         List<WxChoiceListBean.WxChoiceBean> wxChoices = wxChoiceData.getList();
         mDataList.addAll(wxChoices);
         notifyDataSetChanged();

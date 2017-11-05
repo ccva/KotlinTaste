@@ -1,16 +1,20 @@
 package com.va.perfect.chart.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.RectF;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.va.perfect.R;
+
+import java.math.BigDecimal;
 
 /**
  * @author Junmeng.Chen
@@ -19,22 +23,37 @@ import com.va.perfect.R;
 
 public class ProgressView extends View {
 
+    public static final String TAG = "progressview";
+
     private float mScale = 1f;
 
-    private float mDegree = 90f;
+    private float progress = 0f;
 
     private String mDegreeString = "0%";
 
+    private int progressBackgroundColor = Color.parseColor("#aa000000");
+
+    private int progressFoundColor = Color.parseColor("#ff4081");
+
     public ProgressView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public ProgressView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public ProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initAttrs(context, attrs);
+    }
+
+    private void initAttrs(Context context, AttributeSet attrs) {
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProgressView);
+        progressBackgroundColor = typedArray.getColor(R.styleable.ProgressView_progressBackgroundColor, progressBackgroundColor);
+        progressFoundColor = typedArray.getColor(R.styleable.ProgressView_progressColor, progressFoundColor);
+        progress = typedArray.getFloat(R.styleable.ProgressView_progress, progress);
+        typedArray.recycle();
     }
 
     @Override
@@ -53,18 +72,11 @@ public class ProgressView extends View {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-    }
-
-    @Override
     protected void onDraw(Canvas canvas) {
-
-        canvas.drawColor(Color.parseColor("#ffffff"));
 
         super.onDraw(canvas);
 
-        calc();
+        Log.i(TAG, "onDraw: " + progress);
 
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -72,28 +84,37 @@ public class ProgressView extends View {
 
         paint.setStrokeCap(Paint.Cap.ROUND);
 
-        paint.setStrokeWidth(80 * mScale);
+        float stockWidth = 80 * mScale;
 
-        paint.setColor(Color.parseColor("#aa000000"));
+        paint.setStrokeWidth(stockWidth);
 
-        RectF rectF = new RectF(getLeft() + getPaddingLeft(), getTop() + getPaddingTop(),
-                getRight() - getPaddingRight(), getBottom() - getPaddingBottom());
+        float halfStockWidth = stockWidth / 2;
 
-        canvas.drawCircle(rectF.centerX(), rectF.centerY(), rectF.width() / 2, paint);
+        RectF rectF = new RectF(getLeft() + getPaddingLeft() + halfStockWidth, getTop() + getPaddingTop() + halfStockWidth, getRight() - getPaddingRight() - halfStockWidth, getBottom() - getPaddingBottom() - halfStockWidth);
 
-        paint.setColor(getResources().getColor(R.color.colorAccent));
+        drawProgressBackground(canvas, paint, rectF);
 
-        Path path = new Path();
+        drawProgress(canvas, paint, rectF);
 
-        path.addArc(rectF, 0, mDegree);
+        Paint textPaint = initTextPaintSetting();
 
-        canvas.drawPath(path, paint);
+        drawCenterText(canvas, textPaint);
+    }
 
+    @NonNull
+    private Paint initTextPaintSetting() {
         Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         textPaint.setColor(Color.BLUE);
 
         textPaint.setTextSize(120 * mScale);
+
+        textPaint.setFakeBoldText(true);
+        return textPaint;
+    }
+
+    private void drawCenterText(Canvas canvas, Paint textPaint) {
+        calcText();
 
         float textLength = textPaint.measureText(mDegreeString);
 
@@ -106,9 +127,32 @@ public class ProgressView extends View {
         canvas.drawText(mDegreeString, startX, startY, textPaint);
     }
 
-    private void calc() {
+    private void drawProgress(Canvas canvas, Paint paint, RectF rectF) {
+        paint.setColor(progressFoundColor);
 
-        mDegreeString = String.format("%.2f", mDegree) + "%";
+        canvas.drawArc(rectF, 0, progress, false, paint);
+    }
 
+    private void drawProgressBackground(Canvas canvas, Paint paint, RectF rectF) {
+        paint.setColor(progressBackgroundColor);
+
+        canvas.drawCircle(rectF.centerX(), rectF.centerY(), rectF.width() / 2, paint);
+    }
+
+    private void calcText() {
+        float percent = progress / 360f;
+        BigDecimal b = new BigDecimal(percent * 100);
+        int result = b.setScale(2, BigDecimal.ROUND_HALF_UP).intValue();
+
+        mDegreeString = result + "%";
+    }
+
+    public float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
+        invalidate();
     }
 }

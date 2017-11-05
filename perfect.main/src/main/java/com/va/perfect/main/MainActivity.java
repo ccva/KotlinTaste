@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity {
 
-    private String[] mMenuItems = {"Tv", "Joke", "WxChoice","Chart"};
+    private String[] mMenuItems = { "Joke", "WxChoice","Tv","Chart"};
 
     DrawerLayout drawerLayout;
 
@@ -69,9 +69,9 @@ public class MainActivity extends BaseActivity {
 
     private void initFragmentList() {
         fragmentList.clear();
-        fragmentList.add(CategoryFragment.newInstance());
         fragmentList.add(JokeFragment.newInstance());
         fragmentList.add(WxChoiceFragment.newInstance());
+        fragmentList.add(CategoryFragment.newInstance());
         fragmentList.add(ChartFragment.newInstance());
     }
 
