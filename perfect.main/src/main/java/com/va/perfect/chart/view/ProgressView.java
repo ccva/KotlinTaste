@@ -34,6 +34,7 @@ public class ProgressView extends View {
     private int progressBackgroundColor = Color.parseColor("#aa000000");
 
     private int progressFoundColor = Color.parseColor("#ff4081");
+    private Paint mProgresspaint;
 
     public ProgressView(Context context) {
         this(context, null);
@@ -78,27 +79,32 @@ public class ProgressView extends View {
 
         Log.i(TAG, "onDraw: " + progress);
 
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-        paint.setStyle(Paint.Style.STROKE);
-
-        paint.setStrokeCap(Paint.Cap.ROUND);
-
         float stockWidth = 80 * mScale;
-
-        paint.setStrokeWidth(stockWidth);
 
         float halfStockWidth = stockWidth / 2;
 
+        initProgressPaint(stockWidth);
+
         RectF rectF = new RectF(getLeft() + getPaddingLeft() + halfStockWidth, getTop() + getPaddingTop() + halfStockWidth, getRight() - getPaddingRight() - halfStockWidth, getBottom() - getPaddingBottom() - halfStockWidth);
 
-        drawProgressBackground(canvas, paint, rectF);
+        drawProgressBackground(canvas, mProgresspaint, rectF);
 
-        drawProgress(canvas, paint, rectF);
+        drawProgress(canvas, mProgresspaint, rectF);
 
         Paint textPaint = initTextPaintSetting();
 
         drawCenterText(canvas, textPaint);
+    }
+
+    private void initProgressPaint(float stockWidth) {
+
+        mProgresspaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        mProgresspaint.setStyle(Paint.Style.STROKE);
+
+        mProgresspaint.setStrokeCap(Paint.Cap.ROUND);
+
+        mProgresspaint.setStrokeWidth(stockWidth);
     }
 
     @NonNull

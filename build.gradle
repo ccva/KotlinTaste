@@ -27,6 +27,12 @@ task clean(type: Delete) {
 }
 
 ext{
+
+    compileSdkVersion = 26
+    buildToolsVersion = "26.0.2"
+    minSdkVersion = 19
+    targetSdkVersion = 26
+
     daggerVersion = "2.11"
 
     junitVersion = "4.12"
