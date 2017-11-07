@@ -49,8 +49,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflaterRootView(inflater, container, savedInstanceState);
+        mRootView = rootView;
         initCreateViewDefault();
-        return mRootView = rootView;
+        return mRootView;
     }
 
     protected void initCreateViewDefault() {

@@ -44,7 +44,7 @@ public class ChartFragment extends BaseFragment {
 
     private void startAnim() {
         ObjectAnimator progress = ObjectAnimator.ofFloat(progressView, "progress", 0f, 180f);
-
+        progress.setDuration(1000);
         progress.start();//启动动画。
     }
 }
