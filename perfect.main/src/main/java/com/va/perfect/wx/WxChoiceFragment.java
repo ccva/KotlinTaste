@@ -41,7 +41,7 @@ public class WxChoiceFragment extends BaseListFragment<WxChoiceListBean.WxChoice
     }
 
     @Override
-    protected void initCreateViewDefault() {
+    protected void initCreateViewDefault(Bundle savedInstanceState) {
         wxChoicePresenter = new WxChoicePresenterImpl(this);
     }
 

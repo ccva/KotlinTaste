@@ -2,12 +2,16 @@ package com.va.kotlintaste.app;
 
 import android.app.ActivityManager;
 import android.app.Application;
+import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.va.kotlintaste.config.GlobalConfig;
 import com.va.kotlintaste.di.AppComponent;
 import com.va.kotlintaste.di.AppModule;
 import com.va.kotlintaste.di.DaggerAppComponent;
+
+import org.jetbrains.annotations.Contract;
 
 import java.util.List;
 
@@ -26,6 +30,8 @@ public class App extends Application {
 
     private static App instance;
 
+    @Nullable
+    @Contract(pure = true)
     public static App getInstance() {
         if (instance == null) {
             return null;

@@ -25,5 +25,11 @@ public final class ApiConstant {
 
     public static final String WX_SIGN_KEY = "07e8bba11efb3c691b58a35287bd5c14";
 
+    public static final String BASE_URL_JU_HE_POST_CODE_KEY = "ju_he_post_code_key";
+
+    public static final String BASE_URL_JU_HE_POST_CODE = "http://v.juhe.cn/";
+
+    public static final String POST_CODE_KEY = "53c9d244d1098f1f184018f871b0b8d4";
+
 
 }

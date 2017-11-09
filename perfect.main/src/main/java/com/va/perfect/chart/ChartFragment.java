@@ -38,7 +38,7 @@ public class ChartFragment extends BaseFragment {
     }
 
     @Override
-    protected void initCreateViewDefault() {
+    protected void initCreateViewDefault(Bundle savedInstanceState) {
         progressView.setOnClickListener(v -> startAnim());
     }
 

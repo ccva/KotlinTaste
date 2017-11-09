@@ -13,6 +13,7 @@ import com.va.perfect.R;
 import com.va.perfect.activity.BaseActivity;
 import com.va.perfect.chart.ChartFragment;
 import com.va.perfect.joke.JokeFragment;
+import com.va.perfect.postcode.PostCodeFragment;
 import com.va.perfect.test.TestFragment;
 import com.va.perfect.tv.CategoryFragment;
 import com.va.perfect.wx.WxChoiceFragment;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class MainActivity extends BaseActivity {
 
-    private String[] mMenuItems = { "Joke", "WxChoice","Tv","Chart","Test"};
+    private String[] mMenuItems = {"Joke", "WxChoice", "Tv", "Chart", "Test", "PostCode"};
 
     DrawerLayout drawerLayout;
 
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity {
         fragmentList.add(CategoryFragment.newInstance());
         fragmentList.add(ChartFragment.newInstance());
         fragmentList.add(TestFragment.newInstance());
+        fragmentList.add(PostCodeFragment.newInstance());
     }
 
     private void initEvent() {

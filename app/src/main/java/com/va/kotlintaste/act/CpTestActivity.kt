@@ -16,7 +16,7 @@ import android.text.method.LinkMovementMethod
 import android.util.Log
 import com.va.kotlintaste.IPushServiceInterface
 import com.va.kotlintaste.R
-import com.va.kotlintaste.constant.DBConstant
+import com.va.kotlintaste.constant.DbConstant
 import com.va.kotlintaste.service.BackPushService
 import com.va.kotlintaste.util.ProcessUtils
 import kotlinx.android.synthetic.main.activity_cp_test.*
@@ -61,7 +61,7 @@ class CpTestActivity : AppCompatActivity() {
 
         tv.movementMethod = LinkMovementMethod.getInstance()
 
-        contentResolver.registerContentObserver(Uri.parse(DBConstant.PERSON_URI_STRING),
+        contentResolver.registerContentObserver(Uri.parse(DbConstant.PERSON_URI_STRING),
                 true, observer)
 
         bindService(Intent(this, BackPushService::class.java), conn, Service.BIND_AUTO_CREATE)
@@ -102,8 +102,8 @@ class CpTestActivity : AppCompatActivity() {
 
         Thread(Runnable {
             kotlin.run {
-                val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
-                val arrayOf = arrayOf(DBConstant.KEY_ID, DBConstant.KEY_NAME, DBConstant.KEY_WHERE)
+                val uri = Uri.parse(DbConstant.PERSON_URI_STRING)
+                val arrayOf = arrayOf(DbConstant.KEY_ID, DbConstant.KEY_NAME, DbConstant.KEY_WHERE)
                 Log.i("cjm", "query 1  " + SystemClock.currentThreadTimeMillis())
                 val cursor = contentResolver.query(uri, arrayOf, null, null, null)
                 Log.i("cjm", "query a2  " + SystemClock.currentThreadTimeMillis())
@@ -111,8 +111,8 @@ class CpTestActivity : AppCompatActivity() {
                 val format = SimpleDateFormat("HH:mm")
                 sb.append("time : " + format.format(Calendar.getInstance().time)).append("\n")
                 while (cursor.moveToNext()) {
-                    val name = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_NAME))
-                    val where = cursor.getString(cursor.getColumnIndex(DBConstant.KEY_WHERE))
+                    val name = cursor.getString(cursor.getColumnIndex(DbConstant.KEY_NAME))
+                    val where = cursor.getString(cursor.getColumnIndex(DbConstant.KEY_WHERE))
                     sb.append(name).append("\n")
                 }
 

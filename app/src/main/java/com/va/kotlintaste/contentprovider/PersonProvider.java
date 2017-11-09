@@ -12,12 +12,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.va.kotlintaste.constant.DBConstant;
+import com.va.kotlintaste.constant.DbConstant;
 import com.va.kotlintaste.db.TasteDBHelper;
 import com.va.kotlintaste.util.Utils;
 
 /**
- * Created by Junmeng.Chen on 2017/9/14.
+ *
+ * @author Junmeng.Chen
+ * @date 2017/9/14
  */
 
 public class PersonProvider extends ContentProvider {
@@ -28,7 +30,7 @@ public class PersonProvider extends ContentProvider {
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(DBConstant.AUTHORITY_PERSON, DBConstant.PATH_PERSON, PERSON);
+        uriMatcher.addURI(DbConstant.AUTHORITY_PERSON, DbConstant.PATH_PERSON, PERSON);
     }
 
     private TasteDBHelper tasteDBHelper;
@@ -65,7 +67,7 @@ public class PersonProvider extends ContentProvider {
                 Log.i("cjm", "query provider 1  " + SystemClock.currentThreadTimeMillis());
                 SQLiteDatabase database = tasteDBHelper.getReadableDatabase();
                 Log.i("cjm", "query provider a2  " + SystemClock.currentThreadTimeMillis());
-                cursor = database.query(DBConstant.TABLE_PERSON, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = database.query(DbConstant.TABLE_PERSON, projection, selection, selectionArgs, null, null, sortOrder);
                 Log.i("cjm", "query provider 3  " + SystemClock.currentThreadTimeMillis());
                 cursor.setNotificationUri(contentResolver, uri);
                 Log.i("cjm", "query process is " + Utils.getProcessName(getContext(), android.os.Process.myPid()));
@@ -82,8 +84,8 @@ public class PersonProvider extends ContentProvider {
         switch (match) {
             case PERSON:
                 SQLiteDatabase database = tasteDBHelper.getWritableDatabase();
-                values.put(DBConstant.KEY_WHERE, Utils.getProcessName(getContext(), android.os.Process.myPid()));
-                insert = database.insert(DBConstant.TABLE_PERSON, null, values);
+                values.put(DbConstant.KEY_WHERE, Utils.getProcessName(getContext(), android.os.Process.myPid()));
+                insert = database.insert(DbConstant.TABLE_PERSON, null, values);
                 if (insert > 0) {
                     contentResolver.notifyChange(uri, null);
                 }
@@ -100,7 +102,7 @@ public class PersonProvider extends ContentProvider {
         switch (match) {
             case PERSON:
                 SQLiteDatabase db = tasteDBHelper.getWritableDatabase();
-                delete = db.delete(DBConstant.TABLE_PERSON, selection, selectionArgs);
+                delete = db.delete(DbConstant.TABLE_PERSON, selection, selectionArgs);
                 if (delete > 0) {
                     contentResolver.notifyChange(uri, null);
                 }
@@ -117,7 +119,7 @@ public class PersonProvider extends ContentProvider {
         switch (match) {
             case PERSON:
                 SQLiteDatabase db = tasteDBHelper.getWritableDatabase();
-                update = db.update(DBConstant.TABLE_PERSON, values, selection, selectionArgs);
+                update = db.update(DbConstant.TABLE_PERSON, values, selection, selectionArgs);
                 if (update > 0) {
                     contentResolver.notifyChange(uri, null);
                 }

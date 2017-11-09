@@ -1,12 +1,14 @@
 package com.va.kotlintaste.constant;
 
 /**
- * Created by Junmeng.Chen on 2017/9/14.
+ *
+ * @author Junmeng.Chen
+ * @date 2017/9/14
  */
 
-public final class DBConstant {
+public final class DbConstant {
 
-    public static final String PERSON_URI_STRING = "content://" + DBConstant.AUTHORITY_PERSON + "/" + DBConstant.PATH_PERSON;
+    public static final String PERSON_URI_STRING = "content://" + DbConstant.AUTHORITY_PERSON + "/" + DbConstant.PATH_PERSON;
 
     public static final String AUTHORITY_PERSON = "com.va.kotlintaste";
 

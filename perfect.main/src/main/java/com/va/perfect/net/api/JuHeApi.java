@@ -4,6 +4,7 @@ package com.va.perfect.net.api;
 import com.va.kotlintaste.net.retrofit.constant.NameConstant;
 import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.joke.JokeBean;
+import com.va.perfect.net.dao.postcode.ProvinceBean;
 import com.va.perfect.net.dao.result.BaseHttpResult;
 import com.va.perfect.net.dao.tv.CategoryBean;
 import com.va.perfect.net.dao.tv.ChannelBean;
@@ -73,5 +74,14 @@ public interface JuHeApi {
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_WX_HEAD_KEY})
     @GET("weixin/query")
     Observable<BaseHttpResult<WxChoiceListBean>> getWxChoice(@QueryMap Map<String,Object> params);
+
+    /**
+     * 获取邮编信息
+     *
+     * @return
+     */
+    @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_POST_CODE_KEY})
+    @GET("postcode/pcd")
+    Observable<BaseHttpResult<List<ProvinceBean>>> getPostCodeInfo(@Query("key") String key);
 
 }

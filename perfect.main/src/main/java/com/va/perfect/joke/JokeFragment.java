@@ -42,7 +42,7 @@ public class JokeFragment extends BaseListFragment<JokeBean> implements JokeCont
     }
 
     @Override
-    protected void initCreateViewDefault() {
+    protected void initCreateViewDefault(Bundle savedInstanceState) {
         jokePresenter = new JokePresenterImpl(this);
     }
 

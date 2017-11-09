@@ -14,7 +14,7 @@ import android.util.Log
 import com.va.kotlintaste.IPushServiceInterface
 import com.va.kotlintaste.act.MainActivity
 import com.va.kotlintaste.R
-import com.va.kotlintaste.constant.DBConstant
+import com.va.kotlintaste.constant.DbConstant
 import com.va.kotlintaste.util.ProcessUtils
 
 class BackPushService : Service() {
@@ -102,10 +102,10 @@ class BackPushService : Service() {
         if (!canReceive) {
             return
         }
-        val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
+        val uri = Uri.parse(DbConstant.PERSON_URI_STRING)
         val values = ContentValues()
-        values.put(DBConstant.KEY_NAME, "ffcjm")
-        val where = DBConstant.KEY_NAME + "= ?"
+        values.put(DbConstant.KEY_NAME, "ffcjm")
+        val where = DbConstant.KEY_NAME + "= ?"
         val selectionArgs = "cjm"
         contentResolver.update(uri, values, where, arrayOf(selectionArgs))
 
@@ -116,10 +116,10 @@ class BackPushService : Service() {
             return
         }
 
-        val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
+        val uri = Uri.parse(DbConstant.PERSON_URI_STRING)
         val contentValues = ContentValues()
-        contentValues.put(DBConstant.KEY_ID, 1)
-        contentValues.put(DBConstant.KEY_NAME, "cjm")
+        contentValues.put(DbConstant.KEY_ID, 1)
+        contentValues.put(DbConstant.KEY_NAME, "cjm")
         contentResolver.insert(uri, contentValues)
     }
 
@@ -127,7 +127,7 @@ class BackPushService : Service() {
         if (!canReceive) {
             return
         }
-        val uri = Uri.parse(DBConstant.PERSON_URI_STRING)
+        val uri = Uri.parse(DbConstant.PERSON_URI_STRING)
         contentResolver.delete(uri, null, null)
     }
 

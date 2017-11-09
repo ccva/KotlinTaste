@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.va.kotlintaste.constant.DBConstant;
+import com.va.kotlintaste.constant.DbConstant;
 
 /**
  * Created by Junmeng.Chen on 2017/9/14.
@@ -12,15 +12,15 @@ import com.va.kotlintaste.constant.DBConstant;
 
 public class TasteDBHelper extends SQLiteOpenHelper {
 
-    public static final String CREATE_TABLE_PERSON = "create table " + DBConstant.TABLE_PERSON +
+    public static final String CREATE_TABLE_PERSON = "create table " + DbConstant.TABLE_PERSON +
             "(id integer primary key autoincrement not null," +
-            DBConstant.KEY_ID + " integer," +
-            DBConstant.KEY_NAME + " varchar(64)," +
-            DBConstant.KEY_WHERE + " varchar(64)"
+            DbConstant.KEY_ID + " integer," +
+            DbConstant.KEY_NAME + " varchar(64)," +
+            DbConstant.KEY_WHERE + " varchar(64)"
             + ")";
 
     public TasteDBHelper(Context context) {
-        super(context, DBConstant.DB_NAME, null, DBConstant.DB_VERSION);
+        super(context, DbConstant.DB_NAME, null, DbConstant.DB_VERSION);
     }
 
     @Override

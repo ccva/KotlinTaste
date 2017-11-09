@@ -2,9 +2,13 @@ package com.va.perfect.test;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Range;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -32,11 +36,11 @@ public class Test2Activity extends AppCompatActivity {
 
     private TextView tvSticky;
 
-    private ListView lv;
+    private Custom2ListView lv;
 
-    private int tvStickyTop;
     private int sh;
     private float lastY;
+    private double mLastMoveY;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -85,74 +89,31 @@ public class Test2Activity extends AppCompatActivity {
             }
         });
 
-
-        //        lv.setOnTouchListener((v, event) -> {
-        //
-        //            int action = event.getAction();
-        //
-        //            if (action == MotionEvent.ACTION_DOWN) {
-        //                lastY = event.getY();
-        //                Log.i(TAG, "onCreate: ACTION_DOWN lv " + "sh = " + sh);
-        //            }
-        //
-        //            if (action == MotionEvent.ACTION_MOVE) {
-        //                float y = event.getY();
-        //                float moveDirection = y - lastY;
-        //                lastY = y;
-        //                int[] tvStickypoint = new int[2];
-        //                tvSticky.getLocationOnScreen(tvStickypoint);
-        //                int i = tvStickypoint[1];
-        //                Log.i(TAG, "onCreate: lv " + "sh = " + sh + " i = " + i);
-        //                // 判断需要悬浮的窗体的位置 是否 到达需要悬浮的位置，如果没有到达指定位置则 请求 ScrollView 拦截事件，否则进行进一步判断
-        //                if (i <= sh) {
-        //                    //悬浮窗体到达指定位置，进行下一步判断
-        //                    int top = lv.getChildAt(0).getTop();
-        //                    // 判断 listView 是否滑动到第一条，如果没有滑动到第一条，则 事件交由ListView处理，否则进行进一步判断
-        //                    if (top == 0) {
-        //                        if (moveDirection < 0) {
-        //                            //如果是 向上滑动的情况，则 事件交由listView处理
-        //                            // listView 滑动 请求父布局 不拦截
-        //                            scrollView.requestDisallowInterceptTouchEvent(true);
-        //                            Log.i(TAG, "悬浮窗体到达指定位置 listView 滑动到了第一条 如果是 向上滑动的情况，则 事件交由listView处理");
-        //                        } else {
-        //                            // 如果是 向下滑动的情况，则 事件交由ScrollView 处理
-        //                            // scrollView 滑动 请求父布局 拦截
-        //                            scrollView.requestDisallowInterceptTouchEvent(false);
-        //                            Log.i(TAG, "悬浮窗体到达指定位置 listView 滑动到了第一条 如果是 向下滑动的情况，则 事件交由ScrollView 处理");
-        //                        }
-        //                    } else {
-        //                        // listView 没有滑动到 第一条，事件交由 listView 处理
-        //                        // listView 滑动 请求父布局 不拦截
-        //                        Log.i(TAG, "悬浮窗体到达指定位置 listView 没有滑动到 第一条，事件交由 listView 处理");
-        //                        scrollView.requestDisallowInterceptTouchEvent(true);
-        //                    }
-        //                } else {
-        //                    //悬浮窗体没有到达指定位置，事件交由ScrollView 处理
-        //                    // scrollView 滑动 请求父布局 拦截
-        //                    scrollView.requestDisallowInterceptTouchEvent(false);
-        //                    Log.i(TAG, "悬浮窗体没有到达指定位置，事件交由ScrollView 处理");
-        //                }
-        //            }
-        //
-        //            return false;
-        //        });
-
     }
 
     private void setEventClash() {
         scrollView.setEventClash(new MyScrollerView.EventClash() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean judgeWindowRight() {
                 int[] tvStickypoint = new int[2];
                 tvSticky.getLocationOnScreen(tvStickypoint);
                 int i = tvStickypoint[1];
-                return i <= sh;
+
+                Range<Integer> range = new Range<>(sh -30,sh +300);
+                boolean contains = range.contains(i);
+                return contains;
             }
 
             @Override
             public boolean judgeListViewOnTop() {
                 int top = lv.getChildAt(0).getTop();
                 return top == 0;
+            }
+
+            @Override
+            public ListView getView() {
+                return lv;
             }
         });
     }

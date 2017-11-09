@@ -19,6 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.google.com' }
     }
 }
 
@@ -48,4 +49,10 @@ ext{
     retrofit2Version = "2.3.0"
     fastjsoncoverterVersion = "2.1.0"
     okhttp3Version = "3.9.0"
+
+    lifecycleVersion = "1.0.3"
+    lifecycleCommonVersion = "1.0.0"
+    lifecycleExtensionsVersion = "1.0.0"
+    lifecycleCompilerVersion = "1.0.0"
+    lifecycleRxJava2Version = "1.0.0"
 }

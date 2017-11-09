@@ -38,7 +38,7 @@
                         android:text="悬浮body"
                         android:textSize="40sp" />
 
-                    <ListView
+                    <com.va.perfect.test.Custom2ListView
                         android:id="@+id/lv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />

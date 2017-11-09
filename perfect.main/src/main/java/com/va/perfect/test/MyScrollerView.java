@@ -2,7 +2,9 @@ package com.va.perfect.test;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.ListView;
 import android.widget.ScrollView;
 
 /**
@@ -21,6 +23,7 @@ public class MyScrollerView extends ScrollView {
     private int mLastMove;
 
     private EventClash eventClash;
+    private int moveDirection;
 
     public void setEventClash(EventClash eventClash) {
         this.eventClash = eventClash;
@@ -39,7 +42,15 @@ public class MyScrollerView extends ScrollView {
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        boolean result = super.dispatchTouchEvent(ev);
+        Log.i(TAG, "dispatchTouchEvent: event action is " + ev.getAction() + " result " + result);
+        return result;
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        super.onInterceptTouchEvent(ev);
         int y = (int) ev.getY();
         boolean isIntercept = false;
         switch (ev.getAction()) {
@@ -53,7 +64,7 @@ public class MyScrollerView extends ScrollView {
                     mLastMove = yDown;
                 }
 
-                int moveDirection = yMove - mLastMove;
+                moveDirection = yMove - mLastMove;
 
                 mLastMove = y;
 
@@ -83,8 +94,9 @@ public class MyScrollerView extends ScrollView {
                         // scrollView 滑动 请求父布局 拦截
                         isIntercept = true;
                     }
+                } else {
+                    isIntercept = false;
                 }
-
                 break;
             case MotionEvent.ACTION_UP:
                 isIntercept = false;
@@ -92,13 +104,49 @@ public class MyScrollerView extends ScrollView {
             default:
                 break;
         }
+
+        boolean result = isIntercept;
+
+        Log.i(TAG, "onInterceptTouchEvent: event action is " + ev.getAction() + " result " + result);
+
         //返回true表示拦截，返回false表示不拦截
-        return isIntercept;
+        return result;
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
+    public boolean onTouchEvent(MotionEvent ev) {
+
+        boolean result = super.onTouchEvent(ev);
+
+        //        if (ev.getAction() == MotionEvent.ACTION_MOVE) {
+        //
+        //            if (eventClash != null) {
+        //
+        //                if (eventClash.judgeWindowRight()) {
+        //                    //悬浮窗体到达指定位置，进行下一步判断
+        //
+        //                    // 判断 listView 是否滑动到第一条，如果没有滑动到第一条，则 事件交由ListView处理，否则进行进一步判断
+        //                    if (eventClash.judgeListViewOnTop()) {
+        //                        if (moveDirection < 0) {
+        //                            eventClash.getView().dispatchTouchEvent(ev);
+        //                            result = false;
+        //                        } else {
+        //                            result = super.onTouchEvent(ev);
+        //                        }
+        //                    }
+        //                } else {
+        //                    result = super.onTouchEvent(ev);
+        //                }
+        //            } else {
+        //                result = super.onTouchEvent(ev);
+        //            }
+        //        } else {
+        //            result = super.onTouchEvent(ev);
+        //        }
+
+        Log.i(TAG, "onTouchEvent: event action is " + ev.getAction() + " result " + result);
+
+        return result;
     }
 
     public interface EventClash {
@@ -115,6 +163,11 @@ public class MyScrollerView extends ScrollView {
          * @return
          */
         boolean judgeListViewOnTop();
+
+        /**
+         * @return
+         */
+        ListView getView();
 
     }
 

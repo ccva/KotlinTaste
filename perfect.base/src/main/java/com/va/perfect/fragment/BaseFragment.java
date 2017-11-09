@@ -50,13 +50,15 @@ public abstract class BaseFragment extends Fragment {
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflaterRootView(inflater, container, savedInstanceState);
         mRootView = rootView;
-        initCreateViewDefault();
+        initCreateViewDefault(savedInstanceState);
         return mRootView;
     }
 
-    protected void initCreateViewDefault() {
-
-    }
+    /**
+     * 初始化方法 在onCreateView 方法中 将布局inflater 之后调用
+     * @param savedInstanceState
+     */
+    protected abstract void initCreateViewDefault(Bundle savedInstanceState);
 
     /**
      * 设置 Fragment的填充视图

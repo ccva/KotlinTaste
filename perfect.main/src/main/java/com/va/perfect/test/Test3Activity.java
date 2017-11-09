@@ -32,18 +32,15 @@ public class Test3Activity extends AppCompatActivity {
 
     public static final String TAG = TestActivity.class.getSimpleName();
 
-    private ScrollView scrollView;
+    private ScrollerView3 scrollView;
 
     private TextView tvSticky;
 
     private ListViewInScrollerView lv;
 
-    private int tvStickyTop;
     private int sh;
-    private float lastY;
 
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +64,6 @@ public class Test3Activity extends AppCompatActivity {
         TestAdapter testAdapter = new TestAdapter();
         testAdapter.setmDataList(strings);
         lv.setAdapter(testAdapter);
-
 
 
         getWindow().getDecorView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -96,7 +92,7 @@ public class Test3Activity extends AppCompatActivity {
     }
 
     private void setEventClash() {
-        lv.setEventClash(new MyScrollerView.EventClash() {
+        lv.setEventClash(new ListViewInScrollerView.EventClash() {
             @Override
             public boolean judgeWindowRight() {
                 int[] tvStickypoint = new int[2];
@@ -110,6 +106,12 @@ public class Test3Activity extends AppCompatActivity {
                 int top = lv.getChildAt(0).getTop();
                 return top == 0;
             }
+
+            @Override
+            public ScrollView getScrollView() {
+                return scrollView;
+            }
+
         });
     }
 

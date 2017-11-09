@@ -94,6 +94,7 @@ public class TestActivity extends AppCompatActivity {
 
             if (action == MotionEvent.ACTION_DOWN) {
                 lastY = event.getY();
+                scrollView.requestDisallowInterceptTouchEvent(true);
                 Log.i(TAG, "onCreate: ACTION_DOWN lv " + "sh = " + sh);
                 return true;
             }
