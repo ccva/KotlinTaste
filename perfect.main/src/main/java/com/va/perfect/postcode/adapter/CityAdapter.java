@@ -42,6 +42,7 @@ public class CityAdapter extends BaseRecyclerAdapter<ProvinceBean.CityBean> {
     protected void onBindView(BaseRecyclerViewHolder holder, int position) {
         ViewDataBinding viewDataBinding = holder.getViewDataBinding();
         viewDataBinding.setVariable(BR.city, mDataList.get(position));
-        viewDataBinding.executePendingBindings();
+        PostCodeClickListener.CityClickListener listener = cityBean -> postCodeViewModel.getCityClickEvent().setValue(cityBean);
+        viewDataBinding.setVariable(BR.listener, listener);
     }
 }

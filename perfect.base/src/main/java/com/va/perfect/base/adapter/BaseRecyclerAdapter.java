@@ -34,6 +34,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<BaseRe
         this.mLayoutInflater = LayoutInflater.from(mContext);
     }
 
+    public void setDataList(List<T> mDataList) {
+        this.mDataList = mDataList;
+    }
+
     /**
      * 创建 ViewHolder
      *

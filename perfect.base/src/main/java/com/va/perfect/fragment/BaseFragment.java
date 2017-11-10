@@ -3,6 +3,7 @@ package com.va.perfect.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +95,12 @@ public abstract class BaseFragment extends Fragment {
      */
     protected void refreshData() {
 
+    }
+
+    public void snackbar(CharSequence charSequence) {
+        if (mRootView != null) {
+            Snackbar.make(mRootView, charSequence, Snackbar.LENGTH_SHORT).show();
+        }
     }
 
 }

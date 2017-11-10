@@ -65,6 +65,8 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
 
         initDefault();
 
+        setCanRefresh(setCanRefresh());
+
         needShowRefreshAnim = isNeedShowRefreshAnim();
 
         if (needShowRefreshAnim) {
@@ -72,7 +74,18 @@ public abstract class BaseListActivity<T> extends BaseActivity implements BaseRe
         }
 
         refreshData();
+    }
 
+    public void setCanRefresh(boolean b) {
+        if (b) {
+            swipeRefreshLayout.setEnabled(true);
+        } else {
+            swipeRefreshLayout.setEnabled(false);
+        }
+    }
+
+    public boolean setCanRefresh() {
+        return true;
     }
 
     protected boolean isNeedShowRefreshAnim() {

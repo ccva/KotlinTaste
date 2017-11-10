@@ -4,6 +4,7 @@ package com.va.perfect.net.api;
 import com.va.kotlintaste.net.retrofit.constant.NameConstant;
 import com.va.perfect.net.constant.ApiConstant;
 import com.va.perfect.net.dao.joke.JokeBean;
+import com.va.perfect.net.dao.postcode.PostCodeInfo;
 import com.va.perfect.net.dao.postcode.ProvinceBean;
 import com.va.perfect.net.dao.result.BaseHttpResult;
 import com.va.perfect.net.dao.tv.CategoryBean;
@@ -83,5 +84,14 @@ public interface JuHeApi {
     @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_POST_CODE_KEY})
     @GET("postcode/pcd")
     Observable<BaseHttpResult<List<ProvinceBean>>> getPostCodeInfo(@Query("key") String key);
+
+    /**
+     * 查询邮编
+     * @param params
+     * @return
+     */
+    @Headers({NameConstant.DOMAIN_NAME_HEADER + ApiConstant.BASE_URL_JU_HE_POST_CODE_KEY})
+    @GET("postcode/search")
+    Observable<BaseHttpResult<PostCodeInfo>> searchPostCode(@QueryMap Map<String,Object> params);
 
 }

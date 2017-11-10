@@ -45,6 +45,8 @@ public class ProvinceBean implements Serializable {
         this.city = city;
     }
 
+
+
     public static class CityBean {
         /**
          * id : 32

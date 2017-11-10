@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.va.perfect.postcode.adapter.ProvinceAdapter">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
         <variable
-            name="province"
-            type="com.va.perfect.net.dao.postcode.ProvinceBean" />
+            name="district"
+            type="com.va.perfect.net.dao.postcode.ProvinceBean.CityBean.DistrictBean" />
 
         <variable
             name="listener"
-            type="com.va.perfect.postcode.adapter.PostCodeClickListener.ProvinceClickListener" />
+            type="com.va.perfect.postcode.adapter.PostCodeClickListener.DistractClickListener" />
 
     </data>
 
@@ -21,19 +19,16 @@
         android:background="?attr/selectableItemBackground">
 
         <TextView
-            android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:onClick="@{() -> listener.onDistractClick(district)}"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:onClick="@{() -> listener.onProvinceClick(province)}"
-            android:text="@{province.province}"
-            android:textSize="20sp"
-            tools:text="province" />
+            android:text="@{district.district}"
+            android:textSize="16sp" />
 
     </android.support.constraint.ConstraintLayout>
 
 </layout>
-
 

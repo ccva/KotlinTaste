@@ -8,6 +8,10 @@
             name="city"
             type="com.va.perfect.net.dao.postcode.ProvinceBean.CityBean" />
 
+        <variable
+            name="listener"
+            type="com.va.perfect.postcode.adapter.PostCodeClickListener.CityClickListener" />
+
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -20,8 +24,9 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="${city.city}"
-            android:textSize="20sp"
+            android:onClick="@{() -> listener.onCityClick(city)}"
+            android:text="@{city.city}"
+            android:textSize="18sp"
             tools:text="province" />
 
     </android.support.constraint.ConstraintLayout>
