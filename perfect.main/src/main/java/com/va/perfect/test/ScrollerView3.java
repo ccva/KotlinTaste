@@ -44,14 +44,4 @@ public class ScrollerView3 extends ScrollView {
         return result;
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        super.onInterceptTouchEvent(ev);
-        int action = ev.getAction();
-        if (action == MotionEvent.ACTION_DOWN) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 }

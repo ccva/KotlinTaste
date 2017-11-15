@@ -2,7 +2,6 @@ package com.va.perfect.test;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -43,25 +42,19 @@ public class ListViewInScrollerView extends ListView {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
 
-        boolean result = super.onTouchEvent(ev);
+        boolean result = false;
 
-        Log.i(TAG, "onTouchEvent: event action is " + ev.getAction() + " result " + result);
+        int action = ev.getAction();
 
-        return result;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-
-        switch (event.getAction()) {
+        switch (action) {
             case MotionEvent.ACTION_DOWN:
-                mDownX = event.getX();
-                mDownY = event.getY();
-                //ACTION_DOWN的时候，赶紧把事件hold住
-                eventClash.getScrollView().requestDisallowInterceptTouchEvent(true);
+                mDownY = ev.getY();
+                result = super.onTouchEvent(ev);
+                mLastMove = 0;
                 break;
             case MotionEvent.ACTION_MOVE:
-                float yMove = event.getY();
+
+                float yMove = ev.getY();
 
                 if (mLastMove == 0) {
                     mLastMove = mDownY;
@@ -81,34 +74,84 @@ public class ListViewInScrollerView extends ListView {
                             if (moveDirection < 0) {
                                 //如果是 向上滑动的情况，则 事件交由listView处理
                                 // listView 滑动 请求父布局 不拦截
-//                                getParent().requestDisallowInterceptTouchEvent(true);
+                                super.onTouchEvent(ev);
+                                result = true;
                             } else {
                                 // 如果是 向下滑动的情况，则 事件交由ScrollView 处理
                                 // scrollView 滑动 请求父布局 拦截
-                                eventClash.getScrollView().requestDisallowInterceptTouchEvent(false);
+                                eventClash.getScrollView().onTouchEvent(ev);
+                                result = false;
                             }
                         } else {
                             // listView 没有滑动到 第一条，事件交由 listView 处理
                             // listView 滑动 请求父布局 不拦截
-//                            getParent().requestDisallowInterceptTouchEvent(true);
+                            super.onTouchEvent(ev);
+                            result = true;
                         }
                     } else {
                         //悬浮窗体没有到达指定位置，事件交由ScrollView 处理
                         // scrollView 滑动 请求父布局 拦截
-                        eventClash.getScrollView().requestDisallowInterceptTouchEvent(false);
+                        eventClash.getScrollView().onTouchEvent(ev);
+                        result = false;
                     }
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                //其实这里是多余的
+                mLastMove = 0;
+                super.onTouchEvent(ev);
+                result = false;
                 break;
             default:
+                super.onTouchEvent(ev);
+                result = false;
                 break;
         }
 
-        return super.dispatchTouchEvent(event);
+        return result;
     }
 
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent ev) {
+//
+//        boolean result = false;
+//
+//        if (eventClash != null) {
+//
+//            if (eventClash.judgeWindowRight()) {
+//                //悬浮窗体到达指定位置，进行下一步判断
+//
+//                // 判断 listView 是否滑动到第一条，如果没有滑动到第一条，则 事件交由ListView处理，否则进行进一步判断
+//                if (eventClash.judgeListViewOnTop()) {
+//
+//
+//
+//                    if (moveDirection < 0) {
+//                        //如果是 向上滑动的情况，则 事件交由listView处理
+//                        // listView 滑动 请求父布局 不拦截
+//                        super.onTouchEvent(ev);
+//                        result = true;
+//                    } else {
+//                        // 如果是 向下滑动的情况，则 事件交由ScrollView 处理
+//                        // scrollView 滑动 请求父布局 拦截
+//                        eventClash.getScrollView().onTouchEvent(ev);
+//                        result = false;
+//                    }
+//                } else {
+//                    // listView 没有滑动到 第一条，事件交由 listView 处理
+//                    // listView 滑动 请求父布局 不拦截
+//                    super.onTouchEvent(ev);
+//                    result = true;
+//                }
+//            } else {
+//                //悬浮窗体没有到达指定位置，事件交由ScrollView 处理
+//                // scrollView 滑动 请求父布局 拦截
+//                eventClash.getScrollView().onTouchEvent(ev);
+//                result = false;
+//            }
+//        }
+//        return super.onTouchEvent(ev);
+//    }
 
     public interface EventClash {
 
@@ -121,6 +164,7 @@ public class ListViewInScrollerView extends ListView {
 
         /**
          * 判断 滑动控件是否到顶
+         *
          * @return
          */
         boolean judgeListViewOnTop();

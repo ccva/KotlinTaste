@@ -1,1 +1,7 @@
-include ':app', ':daggerdemo', ':perfect.main', ':perfect.base', ':perfect.net'
+include ':app'
+//include ':daggerdemo'
+include ':perfect.main'
+include ':perfect.base'
+include ':perfect.net'
+include ':crecyclerview'
+include ':Perfect.refresh'

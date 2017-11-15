@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,8 @@ import com.va.perfect.postcode.adapter.ProvinceAdapter;
 import java.util.List;
 
 /**
- *
  * @author Junmeng.Chen
- * @date  2017/11/10
+ * @date 2017/11/10
  */
 public class PostCodeFragment extends BaseFragment {
 
@@ -104,7 +102,8 @@ public class PostCodeFragment extends BaseFragment {
     private void initEvent() {
         postCodeViewModel = obtainViewModel(getActivity());
 
-        postCodeViewModel.getProvinceBeanList().observe(this, provinceBeanList -> provinceAdapter.notifyDataSetChanged());
+        postCodeViewModel.getProvinceBeanList().observe(this, provinceBeanList -> provinceAdapter
+                .notifyDataSetChanged());
 
         postCodeViewModel.getCityBeanList().observe(this, cityBeans -> {
             if (cityBeans == null || cityBeans.size() == 0) {
@@ -126,7 +125,7 @@ public class PostCodeFragment extends BaseFragment {
 
         postCodeViewModel.getPostCodeBeanList().observe(this, postCodeBeans -> {
 
-            if (postCodeBeans == null) {
+            if (postCodeBeans == null || postCodeBeans.size() == 0) {
                 return;
             }
 
@@ -144,7 +143,8 @@ public class PostCodeFragment extends BaseFragment {
 
         postCodeViewModel.getCityClickEvent().observe(this, cityBean -> {
             mCityId = cityBean.getId();
-            List<ProvinceBean.CityBean.DistrictBean> districtBeanList = postCodeViewModel.getDistrictBeanList().getValue();
+            List<ProvinceBean.CityBean.DistrictBean> districtBeanList = postCodeViewModel.getDistrictBeanList()
+                    .getValue();
             List<ProvinceBean.CityBean.DistrictBean> districtBeans = cityBean.getDistrict();
             if (districtBeans == null || districtBeans.size() == 0) {
                 getPostCodeInfo();
