@@ -101,5 +101,7 @@ public class SignView extends View {
         bitmapCanvas = new Canvas(bitmapBuffer);
         path.reset();
         invalidate();
+
+        /*branch2*/
     }
 }
