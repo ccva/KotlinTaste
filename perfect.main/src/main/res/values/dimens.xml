@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="margin">15dp</dimen>
+    <dimen name="divider_height">10dp</dimen>
+    <dimen name="sectioned_top">20dp</dimen>
+    <dimen name="divider_margin_8">8dp</dimen>
 </resources>

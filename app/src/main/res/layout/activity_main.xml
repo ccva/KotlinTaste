@@ -7,6 +7,13 @@
     tools:context="com.va.kotlintaste.act.MainActivity">
 
     <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="back"
+        android:textAllCaps="false" />
+
+    <Button
         android:id="@+id/btn_to_sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -69,7 +69,10 @@
 
         <activity android:name=".act.ImageTestActivity" />
         <activity android:name=".act.ListActivity" />
-        <activity android:name=".act.TransateActivity"></activity>
+        <activity android:name=".act.TransateActivity" />
+        <activity
+            android:name=".act.BackActivity"
+            android:theme="@style/BackTheme" />
     </application>
 
 </manifest>

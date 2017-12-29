@@ -6,7 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.va.perfect.R;
 import com.va.perfect.base.adapter.BaseRecyclerAdapter;
+import com.va.perfect.decoration.SimpleDecoration;
 import com.va.perfect.fragment.BaseListFragment;
 import com.va.perfect.joke.adapter.JokeAdapter;
 import com.va.perfect.net.dao.joke.JokeBean;
@@ -34,6 +36,10 @@ public class JokeFragment extends BaseListFragment<JokeBean> implements JokeCont
     protected void setRecyclerConfig(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
+        SimpleDecoration simpleDecoration = new SimpleDecoration(mContext);
+        simpleDecoration.setDividerMarginLeft(R.dimen.divider_margin_8);
+        simpleDecoration.setDividerMarginRight(R.dimen.divider_margin_8);
+        recyclerView.addItemDecoration(simpleDecoration);
     }
 
     @Override

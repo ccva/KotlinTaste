@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
 
         btn_list.setOnClickListener { startActivity(Intent(this, ListActivity::class.java)) }
 
+        btn_back.setOnClickListener{startActivity(Intent(this,BackActivity::class.java))}
+
         tv_show.text = globalConfig?.appName
     }
 
