@@ -102,6 +102,6 @@ public class SignView extends View {
         path.reset();
         invalidate();
 
-        /*branch2*/
+        /*branch2*/  /*branch2*/
     }
 }
