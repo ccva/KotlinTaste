@@ -103,5 +103,7 @@ public class SignView extends View {
         invalidate();
 
         /*branch2*/  /*branch2*/
+
+        /*branch5*/
     }
 }
