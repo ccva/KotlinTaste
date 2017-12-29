@@ -105,5 +105,7 @@ public class MultiShareView extends View {
     public void setMulti(@Nullable int multi) {
         this.multi = multi;
         postInvalidate();
+
+        /*branch3*/
     }
 }
