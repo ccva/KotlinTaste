@@ -10,8 +10,10 @@ import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import android.widget.RemoteViews
 import com.va.kotlintaste.R
+import com.va.kotlintaste.R.layout.view_custom
 import com.va.kotlintaste.config.GlobalConfig
 import com.va.kotlintaste.toast
+import com.va.kotlintaste.util.NotificationUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -56,40 +58,24 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun buildNotify() {
-        var notificationService = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        var title = "今日头条"
+        var content = "金州勇士官方宣布球队已经解雇了主帅马克-杰克逊，随后宣布了最后的结果。"
 
-        val view_custom = RemoteViews(packageName, R.layout.view_custom)
-        view_custom.setTextViewText(R.id.tv_custom_title, "今日头条")
-        view_custom.setTextViewText(R.id.tv_custom_content, "金州勇士官方宣布球队已经解雇了主帅马克-杰克逊，随后宣布了最后的结果。")
-
-        var notification = Notification()
-
-        notification.`when` = System.currentTimeMillis()
-        notification.flags = Notification.FLAG_AUTO_CANCEL
-        notification.tickerText = "hello world"
-        notification.icon = R.mipmap.ic_launcher//这是个坑，如果不设置icon，通知不显示
-
-        notification.contentView = view_custom
         var intent = Intent(this, CpTestActivity::class.java)
-//        intent.`package` = packageName
         var pendingIntent = PendingIntent.getActivity(this, 200, intent, 0)
-        notification.contentIntent = pendingIntent
 
-
-        notificationService.notify(100, notification)
-
-        // test branch
+        var notificationUtils = NotificationUtils(this)
+        notificationUtils.sendNotification(title,content,pendingIntent)
 
     }
 
 
-    fun openNotificationListenSettings() {
+    private fun openNotificationListenSettings() {
         try {
-            val intent: Intent
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-                intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+            val intent: Intent = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
+                Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
             } else {
-                intent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
+                Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
             }
             startActivity(intent)
         } catch (e: Exception) {

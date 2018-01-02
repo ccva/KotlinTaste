@@ -11,6 +11,8 @@ interface IPushServiceInterface {
 
        void insert();
 
+       void query();
+
        void clear();
 
        void update();

@@ -10,14 +10,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.text.method.LinkMovementMethod
-import android.util.Log
+import android.widget.TextView
 import com.va.kotlintaste.IPushServiceInterface
 import com.va.kotlintaste.R
 import com.va.kotlintaste.constant.DbConstant
 import com.va.kotlintaste.service.BackPushService
+import com.va.kotlintaste.toast
 import com.va.kotlintaste.util.ProcessUtils
 import kotlinx.android.synthetic.main.activity_cp_test.*
 import java.text.SimpleDateFormat
@@ -52,9 +52,9 @@ class CpTestActivity : AppCompatActivity() {
 
         var foregroundApp = ProcessUtils.getForegroundApp(this)
         if (foregroundApp == "com.va.kotlintaste") {
-            Log.i(TAG, "true")
+            toast("foreground")
         } else {
-            Log.i(TAG, "false")
+            toast("not foreground")
         }
 
         setContentView(R.layout.activity_cp_test)
@@ -79,6 +79,12 @@ class CpTestActivity : AppCompatActivity() {
         btn_update.setOnClickListener { update() }
 
         btn_notify.setOnClickListener { notifyI() }
+
+        btn_clear_text.setOnClickListener { clearTextContent(tv) }
+    }
+
+    private fun clearTextContent(tv: TextView?) {
+        tv?.text = ""
     }
 
     private fun notifyI() {
@@ -100,28 +106,50 @@ class CpTestActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     private fun query() {
 
+        var startSb = StringBuilder()
+        startSb.append("begin query")
+                .append("\n")
+
+        changeToUiThreadShow(tv, startSb)
+
         Thread(Runnable {
+            var queryingSb = StringBuilder()
+            queryingSb.append("querying ...")
+                    .append("\n")
+            changeToUiThreadShow(tv, queryingSb)
+
             kotlin.run {
                 val uri = Uri.parse(DbConstant.PERSON_URI_STRING)
                 val arrayOf = arrayOf(DbConstant.KEY_ID, DbConstant.KEY_NAME, DbConstant.KEY_WHERE)
-                Log.i("cjm", "query 1  " + SystemClock.currentThreadTimeMillis())
                 val cursor = contentResolver.query(uri, arrayOf, null, null, null)
-                Log.i("cjm", "query a2  " + SystemClock.currentThreadTimeMillis())
-                val sb = StringBuilder()
                 val format = SimpleDateFormat("HH:mm")
-                sb.append("time : " + format.format(Calendar.getInstance().time)).append("\n")
-                while (cursor.moveToNext()) {
-                    val name = cursor.getString(cursor.getColumnIndex(DbConstant.KEY_NAME))
-                    val where = cursor.getString(cursor.getColumnIndex(DbConstant.KEY_WHERE))
-                    sb.append(name).append("\n")
+                val sb = StringBuilder()
+                sb.append(format.format(Date())).append("\n")
+
+                if (cursor.isAfterLast) {
+                    sb.append("there is nothing!")
+                            .append("\n")
+                } else {
+                    while (cursor.moveToNext()) {
+                        val name = cursor.getString(cursor.getColumnIndex(DbConstant.KEY_NAME))
+                        val where = cursor.getString(cursor.getColumnIndex(DbConstant.KEY_WHERE))
+                        sb.append(name)
+                                .append("\n")
+                                .append(where)
+                                .append("\n")
+                    }
                 }
 
                 cursor.close()
 
-                runOnUiThread { tv.text = StringBuilder(tv.text).append(sb).toString() }
+                changeToUiThreadShow(tv, sb)
             }
         }).start()
 
+    }
+
+    private fun changeToUiThreadShow(textView: TextView, sb: StringBuilder) {
+        runOnUiThread { textView.text = StringBuilder(textView.text).append(sb).toString() }
     }
 
     private fun deleteData() {

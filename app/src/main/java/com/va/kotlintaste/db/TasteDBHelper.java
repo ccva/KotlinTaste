@@ -12,15 +12,15 @@ import com.va.kotlintaste.constant.DbConstant;
 
 public class TasteDBHelper extends SQLiteOpenHelper {
 
-    public static final String CREATE_TABLE_PERSON = "create table " + DbConstant.TABLE_PERSON +
+    public static final String CREATE_TABLE_PERSON = "create table " + DbConstant.Companion.getTABLE_PERSON() +
             "(id integer primary key autoincrement not null," +
-            DbConstant.KEY_ID + " integer," +
-            DbConstant.KEY_NAME + " varchar(64)," +
-            DbConstant.KEY_WHERE + " varchar(64)"
+            DbConstant.Companion.getKEY_ID() + " integer," +
+            DbConstant.Companion.getKEY_NAME() + " varchar(64)," +
+            DbConstant.Companion.getKEY_WHERE() + " varchar(64)"
             + ")";
 
     public TasteDBHelper(Context context) {
-        super(context, DbConstant.DB_NAME, null, DbConstant.DB_VERSION);
+        super(context, DbConstant.Companion.getDB_NAME(), null, DbConstant.Companion.getDB_VERSION());
     }
 
     @Override

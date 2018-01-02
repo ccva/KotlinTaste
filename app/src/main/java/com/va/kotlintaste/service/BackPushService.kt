@@ -7,6 +7,7 @@ import android.app.Service
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
@@ -35,6 +36,10 @@ class BackPushService : Service() {
     var canReceive = false
 
     private var mIBinder: IPushServiceInterface.Stub = object : IPushServiceInterface.Stub() {
+        override fun query() {
+            queryData()
+        }
+
         override fun notification() {
             notifyI()
         }
@@ -57,6 +62,12 @@ class BackPushService : Service() {
 
         override fun unRegisterPushService() {
             canReceive = false
+        }
+    }
+
+    private fun queryData() {
+        if (!canReceive){
+            return
         }
     }
 
