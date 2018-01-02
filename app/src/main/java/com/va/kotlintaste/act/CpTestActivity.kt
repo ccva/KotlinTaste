@@ -124,6 +124,7 @@ class CpTestActivity : AppCompatActivity() {
                 val cursor = contentResolver.query(uri, arrayOf, null, null, null)
                 val format = SimpleDateFormat("HH:mm")
                 val sb = StringBuilder()
+                sb.append("query end. this is the result:").append("\n")
                 sb.append(format.format(Date())).append("\n")
 
                 if (cursor.isAfterLast) {
