@@ -6,6 +6,7 @@ import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.va.kotlintaste.config.GlobalConfig;
 import com.va.kotlintaste.di.AppComponent;
 import com.va.kotlintaste.di.AppModule;
@@ -43,6 +44,13 @@ public class App extends Application {
     public void onCreate() {
         instance = this;
         super.onCreate();
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
 
         appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
 

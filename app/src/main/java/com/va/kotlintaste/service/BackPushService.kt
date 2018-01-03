@@ -16,6 +16,7 @@ import com.va.kotlintaste.IPushServiceInterface
 import com.va.kotlintaste.act.MainActivity
 import com.va.kotlintaste.R
 import com.va.kotlintaste.constant.DbConstant
+import com.va.kotlintaste.util.NotificationUtils
 import com.va.kotlintaste.util.ProcessUtils
 
 class BackPushService : Service() {
@@ -81,31 +82,11 @@ class BackPushService : Service() {
 
     private fun buildNotification() {
 
-        var builder = Notification.Builder(this)
-        builder.setTicker("tickertickertickertickertickertickertickertickertickertickerticker")
-        builder.setSmallIcon(R.mipmap.ic_launcher)
-        builder.setDefaults(Notification.DEFAULT_ALL)
-
-
-        builder.setContentTitle("title")
-        builder.setContentText("content")
-
-        builder.setWhen(System.currentTimeMillis())
-
+        var notificationUtils = NotificationUtils(this)
         var intent = Intent()
-        intent.setClassName("com.va.kotlintaste", MainActivity::class.java.name)
-        var bundle = Bundle()
-        bundle.putString("cjm", "cjm")
-        intent.putExtras(bundle)
-
-        var pendingIntent = PendingIntent.getActivity(this, 100, intent, 0)
-        builder.setContentIntent(pendingIntent)
-
-        var notification = builder.build()
-
-        var notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        notificationManager.notify(200, notification)
+        intent.setClassName("com.va.perfect","com.va.perfect.main.MainActivity")
+        var pendingIntent = PendingIntent.getActivity(this, 200, intent, 0)
+        notificationUtils.sendNotification("jump to another","start jump",pendingIntent)
 
     }
 

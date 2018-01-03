@@ -13,6 +13,7 @@ import com.va.kotlintaste.R
 import com.va.kotlintaste.R.layout.view_custom
 import com.va.kotlintaste.config.GlobalConfig
 import com.va.kotlintaste.toast
+import com.va.kotlintaste.util.ApplicationUtils
 import com.va.kotlintaste.util.NotificationUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -52,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         btn_list.setOnClickListener { startActivity(Intent(this, ListActivity::class.java)) }
 
         btn_back.setOnClickListener{startActivity(Intent(this,BackActivity::class.java))}
+
+        btn_jump_to_perfect_main.setOnClickListener { ApplicationUtils.doStartApplicationWithPackageName(this,"com.va.perfect") }
 
         tv_show.text = globalConfig?.appName
     }
