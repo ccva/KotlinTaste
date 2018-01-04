@@ -37,8 +37,8 @@ public class JokeFragment extends BaseListFragment<JokeBean> implements JokeCont
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
         SimpleDecoration simpleDecoration = new SimpleDecoration(mContext);
-        simpleDecoration.setDividerMarginLeft(R.dimen.divider_margin_8);
-        simpleDecoration.setDividerMarginRight(R.dimen.divider_margin_8);
+        simpleDecoration.setDividerMarginLeft(R.dimen.no_margin);
+        simpleDecoration.setDividerMarginRight(R.dimen.no_margin);
         recyclerView.addItemDecoration(simpleDecoration);
     }
 

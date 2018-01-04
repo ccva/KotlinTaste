@@ -52,9 +52,9 @@ class CpTestActivity : AppCompatActivity() {
 
         var foregroundApp = ProcessUtils.getForegroundApp(this)
         if (foregroundApp == "com.va.kotlintaste") {
-            toast("foreground")
+//            toast("foreground")
         } else {
-            toast("not foreground")
+//            toast("not foreground")
         }
 
         setContentView(R.layout.activity_cp_test)
@@ -81,6 +81,11 @@ class CpTestActivity : AppCompatActivity() {
         btn_notify.setOnClickListener { notifyI() }
 
         btn_clear_text.setOnClickListener { clearTextContent(tv) }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        contentResolver.unregisterContentObserver(observer)
     }
 
     private fun clearTextContent(tv: TextView?) {

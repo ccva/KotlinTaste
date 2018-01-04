@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -15,6 +19,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -33,6 +38,7 @@ android {
         enabled = true
     }
 
+
 }
 
 dependencies {
@@ -41,12 +47,19 @@ dependencies {
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    implementation project(':perfect.base')
+    implementation project(':perfect.net')
+    implementation project(':perfect.widget')
+
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-vector-drawable:26.1.0'
+
     implementation "com.android.support:support-v4:$rootProject.supportVersion"
     implementation "com.android.support:appcompat-v7:$rootProject.appcompatVersion"
     implementation "com.android.support:design:$rootProject.designVersion"
     implementation "com.android.support.constraint:constraint-layout:$rootProject.constraintVersion"
-    implementation project(':perfect.base')
-    implementation project(':perfect.net')
+
     implementation "com.android.support:multidex:$rootProject.multidexVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
@@ -66,4 +79,5 @@ dependencies {
 
     implementation "android.arch.persistence.room:rxjava2:$rootProject.lifecycleRxJava2Version"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

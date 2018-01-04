@@ -1,20 +1,13 @@
 package com.va.kotlintaste.service
 
-import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
-import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import com.va.kotlintaste.IPushServiceInterface
-import com.va.kotlintaste.act.MainActivity
-import com.va.kotlintaste.R
 import com.va.kotlintaste.constant.DbConstant
 import com.va.kotlintaste.util.NotificationUtils
 import com.va.kotlintaste.util.ProcessUtils

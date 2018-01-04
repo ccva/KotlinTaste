@@ -4,4 +4,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test_string">11月5日，举世瞩目、国人期盼 11月5日，举世瞩目、国人期盼的北斗三号卫星开启全球组网序幕，按照“2018年前后完成18颗卫星发射，率先为‘一带一路’沿线国家提供基本服务；2020年实现35颗北斗卫星全球组网，具备服务全球能力”的目标 11月5日，举世瞩目、国人期盼的北斗三号卫星开启全球组网序幕，按照“2018年前后完成18颗卫星发射，率先为‘一带一路’沿线国家提供基本服务；2020年实现35颗北斗卫星全球组网，具备服务全球能力”的目标的北斗三号卫星开启全球组网序幕，按照“2018年前后完成18颗卫星发射，率先为‘一带一路’沿线国家提供基本服务；2020年实现35颗北斗卫星全球组网，具备服务全球能力”的目标</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
