@@ -52,6 +52,8 @@ dependencies {
     implementation project(':perfect.net')
     implementation project(':perfect.widget')
 
+    compile 'com.hjm:BottomTabBar:1.1.2'
+
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-vector-drawable:26.1.0'
 

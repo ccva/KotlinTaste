@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.App"
         android:allowBackup="true"
@@ -73,6 +76,7 @@
         <activity
             android:name=".act.BackActivity"
             android:theme="@style/BackTheme" />
+        <activity android:name=".act.BottomTabBarActivity" />
     </application>
 
 </manifest>

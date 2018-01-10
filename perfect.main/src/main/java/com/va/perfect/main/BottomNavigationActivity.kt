@@ -24,7 +24,7 @@ class BottomNavigationActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_setting -> {
-                message.text = "setting"
+                message.setText(R.string.title_setting)
                 return@OnNavigationItemSelectedListener true
             }
         }
