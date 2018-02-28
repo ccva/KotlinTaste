@@ -23,6 +23,7 @@ class BottomTabBarActivity : AppCompatActivity() {
                 .addTabItem("three",R.drawable.ic_launcher_background,FirstFragment.javaClass)
                 .setTabBarBackgroundColor(Color.BLACK)
                 .isShowDivider(false)
+                .setCurrentTab(0)
 
     }
 }

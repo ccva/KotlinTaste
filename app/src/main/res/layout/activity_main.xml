@@ -76,6 +76,13 @@
         android:text="jump_to_perfect_main"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_jump_to_bottom_act"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="btn_jump_to_bottom_act"
+        android:textAllCaps="false" />
+
     <TextView
         android:id="@+id/tv_show"
         android:layout_width="match_parent"

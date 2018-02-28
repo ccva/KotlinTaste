@@ -1,16 +1,11 @@
 package com.va.kotlintaste.act
 
-import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
-import android.widget.RemoteViews
 import com.va.kotlintaste.R
-import com.va.kotlintaste.R.layout.view_custom
 import com.va.kotlintaste.config.GlobalConfig
 import com.va.kotlintaste.toast
 import com.va.kotlintaste.util.ApplicationUtils
@@ -55,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         btn_back.setOnClickListener{startActivity(Intent(this,BackActivity::class.java))}
 
         btn_jump_to_perfect_main.setOnClickListener { ApplicationUtils.doStartApplicationWithPackageName(this,"com.va.perfect") }
+
+        btn_jump_to_bottom_act.setOnClickListener {
+            startActivity(Intent(this,
+                    BottomTabBarActivity::class.java))
+        }
 
         tv_show.text = globalConfig?.appName
     }

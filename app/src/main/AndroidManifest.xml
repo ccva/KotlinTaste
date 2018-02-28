@@ -77,6 +77,8 @@
             android:name=".act.BackActivity"
             android:theme="@style/BackTheme" />
         <activity android:name=".act.BottomTabBarActivity" />
+        <activity android:name=".act.RecyclerViewActivity" />
+        <activity android:name=".act.RecyclerDemoActivity"></activity>
     </application>
 
 </manifest>
