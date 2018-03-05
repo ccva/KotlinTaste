@@ -1,5 +1,7 @@
 package com.va.kotlintaste.act
 
+import android.app.DialogFragment
+import android.app.Fragment
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +9,7 @@ import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import com.va.kotlintaste.R
 import com.va.kotlintaste.config.GlobalConfig
+import com.va.kotlintaste.fmt.PopupFragment
 import com.va.kotlintaste.toast
 import com.va.kotlintaste.util.ApplicationUtils
 import com.va.kotlintaste.util.NotificationUtils
@@ -57,6 +60,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         tv_show.text = globalConfig?.appName
+
+        btn_show_bottom_dialog.setOnClickListener { showBottomDialog() }
+    }
+
+    private fun showBottomDialog() {
+        var fragment = android.support.v4.app.Fragment.instantiate(baseContext, PopupFragment::class.qualifiedName) as android.support.v4.app.DialogFragment
+        fragment.show(supportFragmentManager,PopupFragment::class.qualifiedName)
     }
 
 
