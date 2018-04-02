@@ -40,9 +40,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    // Dagger dependencies
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    annotationProcessor "com.google.dagger:dagger-compiler:2.11"
-    implementation 'com.google.dagger:dagger:2.11'
-//    implementation 'com.jakewharton:butterknife:8.8.1'
+    //Dagger2的使用注意使用provided引用butterKnife中的library解决冲突
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+    implementation 'com.google.dagger:dagger:2.5'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
 }
