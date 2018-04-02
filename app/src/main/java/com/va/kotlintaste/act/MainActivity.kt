@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
+import android.view.WindowManager
 import android.widget.RemoteViews
 import com.va.kotlintaste.R
 import com.va.kotlintaste.config.GlobalConfig
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, CpTestActivity::class.java))
             }
         }
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
